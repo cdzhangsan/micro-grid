@@ -376,6 +376,15 @@
 <script>
 
     $(function(){
+        var url = '/index?id=12345'
+        ajax_get_data(url,function(data){
+            console.log(data)
+        })
+
+
+
+
+
         get3Date()
         $('.leftMenu .menus').click(function(){
             $(this).parent('.leftMenu').toggleClass('tab2');

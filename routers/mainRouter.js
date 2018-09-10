@@ -1,10 +1,8 @@
 var router = function(app){
-    // app.get('/', function(req, res){
-    //     res.render('../views/index.html');
-    // });
-    // app.get('/*', function(req, res){
-    //     res.render('../views/');
-    // });
+    app.get('/index', function(req, res){
+        res.render('../controllers/index.js');
+    });
+
 
 };
 
