@@ -377,8 +377,12 @@
 
     $(function(){
         var url = '/index?id=12345'
-        ajax_get_data(url,function(data){
-            console.log(data)
+        var nv = {}
+        ajax_post_get_data(url,nv,function(data){
+            if(data.ret==1){
+                console.log(data.data.stationList)
+                map(data.data.stationList);
+            }
         })
 
 
@@ -547,7 +551,7 @@
         myCharts8(rchartObj8);
 
 
-        map(stationList);
+
 
 
     })

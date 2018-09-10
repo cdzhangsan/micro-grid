@@ -1,9 +1,6 @@
+
 var router = function(app){
-    app.get('/index', function(req, res){
-        res.redirect('../controllers/index.js');
-    });
-
-
+    app.post('/index',require('../controllers/index'));
 };
 
 exports.router = router;

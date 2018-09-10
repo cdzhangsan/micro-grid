@@ -17,6 +17,28 @@ function ajax_get_data(url_str,  succ_str) {
         cache: false
     });
 }
+function ajax_post_get_data(url_str,data_obj, succ_str) {
+    $.ajax({
+        type: "POST",
+        url: url_str,
+        data:data_obj,
+        success: function (data) {
+            try {
+                succ_str(data);
+            } catch (err) {
+            }
+        },
+        async: true,
+        error: function () {
+            console.log('失败！');
+        },//err_str,
+        timeout: 4000,
+        dataType: "json",
+        cache: false
+    });
+}
+
+
 
 function ajax_post(url_str, data_obj, succ_str) {
     $.ajax({
