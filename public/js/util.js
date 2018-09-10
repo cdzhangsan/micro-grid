@@ -1,8 +1,7 @@
-function ajax_get_data(url_str, data_obj, succ_str) {
+function ajax_get_data(url_str,  succ_str) {
     $.ajax({
-        type: "POST",
+        type: "GET",
         url: url_str,
-        data: data_obj,
         success: function (data) {
             try {
                 succ_str(data);
