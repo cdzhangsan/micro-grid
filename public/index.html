@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>杭州光储式公用充电站智能监控系统</title>
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
+    <link rel="stylesheet" type="text/css" href="css/iconfont.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <script src="js/fontSize.js"></script>
+    <script src="js/jquery-1.7.2.min.js"></script>
+    <script src="js/echarts.common.min.js"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=mcN0OPfKFm56yYoxGpG85sQ5KqYXQ0Gb"></script>
+    <script src="js/dataTest.js"></script>
+    <script src="js/util.js"></script>
+
+</head>
+<body class="mainBody">
+<div class="wrapper">
+    <div class="topBanner"></div>
+    <div class="mainLeft">
+        <div class="lineLeftTop"></div>
+        <div class="leftMenu ">
+            <span class="menus menu1">系统实时运行监测</span>
+            <span class="menus menu2">系统历史数据</span>
+        </div>
+        <div class="leftMain">
+            <div class="leftTab1">
+                <ul class="chartUl" >
+                <li>
+                    <div class="titleBox">
+                        <h3>光伏运行实时监测图</h3>
+                        <div class="legendBox">
+                            <span><i class="lcolor1"></i>光伏出力</span>
+                            <span><i class="lcolor2"></i>光伏吸纳</span>
+                            <span><i class="lcolor3"></i>装机总容量</span>
+                            <span><i class="lcolor4"></i>出力预测值</span>
+                        </div>
+                    </div>
+                    <div id="elecSta"  class="elecSta"></div>
+                </li>
+                <li>
+                    <div class="titleBox">
+                        <h3>储能运行实时监测图</h3>
+                        <div class="legendBox">
+                            <span><i class="lcolor5"></i>充能PCS</span>
+                            <span><i class="lcolor6"></i>总储存电量</span>
+                            <span><i class="lcolor7"></i>放电PCS</span>
+                        </div>
+                    </div>
+                    <div id="elecSta2" class="elecSta"></div>
+                </li>
+                <li>
+                    <div class="titleBox">
+                        <h3>负荷运行实时监测图</h3>
+                        <div class="legendBox">
+                            <span><i class="lcolor8"></i>充电桩kW数</span>
+                            <span><i class="lcolor9"></i>充电车辆数</span>
+                            <span><i class="lcolor10"></i>负荷kW数</span>
+                        </div>
+                    </div>
+                    <div id="elecSta3" class="elecSta"></div>
+                </li>
+                <li>
+                    <div class="titleBox">
+                        <h3>经济运行实时监测图</h3>
+                        <div class="legendBox">
+                            <span><i class="lcolor11"></i>电网分时电价</span>
+                            <span><i class="lcolor12"></i>充电平均电价</span>
+                            <span><i class="lcolor13"></i>放电平均电价</span>
+                        </div>
+                    </div>
+                    <div id="elecSta4" class="elecSta"></div>
+                </li>
+            </ul>
+            </div>
+            <div class="leftTab2">
+                <div class="leftTab2Top">
+                    <ul>
+                        <li>光伏总出力(MWh):130000</li>
+                        <li>充电桩总充电量(MWh):22325</li>
+                        <li>储能总储电量(MWh):2234523</li>
+                        <li>光伏总本地消纳(MWh):125000</li>
+                        <li>总充电车次:5689</li>
+                        <li>总经济效益(万元):23435</li>
+                    </ul>
+                </div>
+                <ul class="chartUl tab2Ul">
+                    <li>
+                        <div class="titleBox">
+                            <h3>光伏运行历史数据图</h3>
+                            <div class="legendBox">
+                                <span><i class="lcolor3"></i>光伏日输出总量</span>
+                                <span><i class="lcolor2"></i>光伏日消纳总量</span>
+                                <span><i class="lcolor1"></i>光伏日预测输出总量</span>
+                            </div>
+                        </div>
+                        <div id="elecSta5"  class="elecSta"></div>
+                    </li>
+                    <li>
+                        <div class="titleBox">
+                            <h3>储能运行历史数据图</h3>
+                            <div class="legendBox">
+                                <span><i class="lcolor3"></i>储能日放电总量</span>
+                                <span><i class="lcolor2"></i>光伏日充电总量</span>
+                            </div>
+                        </div>
+                        <div id="elecSta6" class="elecSta"></div>
+                    </li>
+                    <li>
+                        <div class="titleBox">
+                            <h3>充电桩运行历史数据图</h3>
+                            <div class="legendBox">
+                                <span><i class="lcolor3"></i>充电桩日充电总量</span>
+                                <span><i class="lcolor1"></i>充电桩日充电总车次</span>
+                            </div>
+                        </div>
+                        <div id="elecSta7" class="elecSta"></div>
+                    </li>
+                    <li>
+                        <div class="titleBox">
+                            <h3>经济运行历史数据图</h3>
+                            <div class="legendBox">
+                                <span><i class="lcolor1"></i>日平均电价</span>
+                                <span><i class="lcolor3"></i>日电网电费</span>
+                                <span><i class="lcolor2"></i>日节省电费</span>
+                            </div>
+                        </div>
+                        <div id="elecSta8" class="elecSta"></div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="mainMiddle">
+        <div class="maintop">
+            <h2 class="text-gradient">杭州光储式公用充电站智能监控系统</h2>
+            <div class="nowTime">2018-07-26 14:25:30</div>
+        </div>
+        <div class="mainMMain">
+            <div id="map" ></div>
+            <div class="mainMB">
+                <div>当前光伏总出力(MWh):130</div>
+                <div>当前充电桩总充功率(MW):22</div>
+                <div>当前储能总储电量(MWh):2234</div>
+                <div>当前光伏总本地消纳(MWh):125</div>
+                <div>当前充电车辆数:56</div>
+                <div>当前储能总充电功率(MW):234</div>
+                <div class="l2">当前连接站点总数:20(正常 18;报警 2;故障 0）</div>
+                <div>当前储能总放电功率(MW):34</div>
+            </div>
+        </div>
+    </div>
+    <div class="mainRight">
+        <div class="rightClickButtom"></div>
+        <div class="lineRightTop"></div>
+        <div class="rightMenu">
+            <span class="menus menu1" data="Tab1">站点设备连接图</span>
+            <span class="menus menu2" data="Tab2">站点实时运行监控</span>
+            <span class="menus menu3" data="Tab3">站点历史数据</span>
+        </div>
+        <div class="rightMain">
+            <div class="rightTab rightTab1">
+                <div class="rightMainTop">
+                    <ul>
+                        <li class="mr">光伏功率<span>23kW</span></li>
+                        <li class="mr">充电功率<span>23kW</span></li>
+                        <li>储能功率<span>23kW</span></li>
+                    </ul>
+                </div>
+                <div class="graphBox">
+                    <div class="powerGrid"></div>
+                    <div class="pLine">
+                        <div class="verticalLine"></div>
+                    </div>
+                    <div class="graph2p">
+                        <div class="graph2pLeft">
+                            <div class="graph2pLeftLine">
+                                <div class="verticalLine"></div>
+                                <div class="ac_dc"></div>
+                                <div class="verticalLine"></div>
+                            </div>
+                            <div class="graph2pLeftMain">
+                                <div class="graph2pLeftMainLeft">
+                                    <div class="verticalLine"></div>
+                                    <div class="dc_dc"></div>
+                                    <div class="verticalLine height2"></div>
+                                    <div class="socNumber">
+                                        <p>76.66</p>
+                                        <span>SOC</span>
+                                    </div>
+                                    <div class="battery battery3"></div>
+                                </div>
+                                <div class="graph2pLeftMainRight">
+                                    <div class="cdztop">
+                                        <div class="verticalLine"></div>
+                                        <div class="dc_dc"></div>
+                                        <div class="verticalLine"></div>
+                                    </div>
+                                    <div class="pileBox">
+                                        <div class="verticalLine"></div>
+                                    </div>
+                                    <div class="pileBox">
+                                        <div class="verticalLine"></div>
+                                        <div class="pileImg"></div>
+                                        <div class="pileImg"></div>
+                                    </div>
+                                    <div class="pileBox2">
+                                        <div class="verticalLine"></div>
+                                        <div class="pileImg"></div>
+                                        <div class="pileImg"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="graph2pRight">
+                            <div class="graph2pRightLine">
+                                <div class="verticalLine height3"></div>
+                                <div class="dc_dc"></div>
+                                <div class="verticalLine height2"></div>
+                            </div>
+                            <div class="graph2pRightMain">
+                                <div class="graph2pRightMainLine"></div>
+                                <div class="graph2pRightMainMain">
+                                    <ul>
+                                        <li>
+                                            <div class="verticalLine height15"></div>
+                                            <div class="panelBox"></div>
+                                        </li>
+                                        <li>
+                                            <div class="verticalLine height15"></div>
+                                            <div class="panelBox"></div>
+                                        </li>
+                                        <li>
+                                            <div class="verticalLine height15"></div>
+                                            <div class="panelBox"></div>
+                                        </li>
+                                        <li>
+                                            <div class="verticalLine height15"></div>
+                                            <div class="panelBox"></div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="rightTitle">智能微网监控系统</div>
+            </div>
+            <div class="rightTab rightTab2">
+                <ul class="chartUl" >
+                    <li>
+                        <div class="titleBox">
+                            <h3>光伏运行实时监测图</h3>
+                            <div class="legendBox">
+                                <span><i class="lcolor1"></i>光伏出力</span>
+                                <span><i class="lcolor2"></i>光伏吸纳</span>
+                                <span><i class="lcolor3"></i>装机总容量</span>
+                                <span><i class="lcolor4"></i>出力预测值</span>
+                            </div>
+                        </div>
+                        <div id="rchart1"  class="elecSta"></div>
+                    </li>
+                    <li>
+                        <div class="titleBox">
+                            <h3>储能运行实时监测图</h3>
+                            <div class="legendBox">
+                                <span><i class="lcolor5"></i>充能PCS</span>
+                                <span><i class="lcolor6"></i>总储存电量</span>
+                                <span><i class="lcolor7"></i>放电PCS</span>
+                                <span><i class="lcolor8"></i>电池总容量</span>
+                            </div>
+                        </div>
+                        <div id="rchart2" class="elecSta"></div>
+                    </li>
+                    <li>
+                        <div class="titleBox">
+                            <h3>负荷运行实时监测图</h3>
+                            <div class="legendBox">
+                                <span><i class="lcolor8"></i>充电桩kW数</span>
+                                <span><i class="lcolor9"></i>充电车辆数</span>
+                                <span><i class="lcolor10"></i>负荷kW数</span>
+                            </div>
+                        </div>
+                        <div id="rchart3" class="elecSta"></div>
+                    </li>
+                    <li>
+                        <div class="titleBox">
+                            <h3>经济运行实时监测图</h3>
+                            <div class="legendBox">
+                                <span><i class="lcolor11"></i>电网分时电价</span>
+                                <span><i class="lcolor12"></i>充电平均电价</span>
+                                <span><i class="lcolor13"></i>放电平均电价</span>
+                            </div>
+                        </div>
+                        <div id="rchart4" class="elecSta"></div>
+                    </li>
+                </ul>
+            </div>
+            <div class="rightTab rightTab3">
+                <div class="leftTab2Top">
+                    <ul>
+                        <li>光伏总出力(MWh):130000</li>
+                        <li>充电桩总充电量(MWh):22325</li>
+                        <li>储能总储电量(MWh):2234523</li>
+                        <li>光伏总本地消纳(MWh):125000</li>
+                        <li>总充电车次:5689</li>
+                        <li>总经济效益(万元):23435</li>
+                    </ul>
+                </div>
+                <ul class="chartUl tab2Ul">
+                    <li>
+                        <div class="titleBox">
+                            <h3>光伏运行历史数据图</h3>
+                            <div class="legendBox">
+                                <span><i class="lcolor3"></i>光伏日输出总量</span>
+                                <span><i class="lcolor2"></i>光伏日消纳总量</span>
+                                <span><i class="lcolor1"></i>光伏日预测输出总量</span>
+                            </div>
+                        </div>
+                        <div id="rchart5"  class="elecSta"></div>
+                    </li>
+                    <li>
+                        <div class="titleBox">
+                            <h3>储能运行历史数据图</h3>
+                            <div class="legendBox">
+                                <span><i class="lcolor3"></i>储能日放电总量</span>
+                                <span><i class="lcolor2"></i>光伏日充电总量</span>
+                            </div>
+                        </div>
+                        <div id="rchart6" class="elecSta"></div>
+                    </li>
+                    <li>
+                        <div class="titleBox">
+                            <h3>充电桩运行历史数据图</h3>
+                            <div class="legendBox">
+                                <span><i class="lcolor3"></i>充电桩日充电总量</span>
+                                <span><i class="lcolor1"></i>充电桩日充电总车次</span>
+                            </div>
+                        </div>
+                        <div id="rchart7" class="elecSta"></div>
+                    </li>
+                    <li>
+                        <div class="titleBox">
+                            <h3>经济运行历史数据图</h3>
+                            <div class="legendBox">
+                                <span><i class="lcolor1"></i>日平均电价</span>
+                                <span><i class="lcolor3"></i>日电网电费</span>
+                                <span><i class="lcolor2"></i>日节省电费</span>
+                            </div>
+                        </div>
+                        <div id="rchart8" class="elecSta"></div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="popWin" class="popWin">
+    <div class="winTop">
+        <span id="room_name">文二路光储充站</span></span>
+    </div>
+    <div class="winMain">
+        <ul>
+            <li>当前光伏出力：<span id="gfcl">130</span>kW</li>
+            <li>当前光伏吸纳：<span id="inner_temp">130</span>kW</li>
+            <li>当前充电总功率：<span id="current_status">122</span>kW</li>
+            <li>当前充电车辆数：<span id="current">56</span>辆</li>
+            <li>储能PCS功率：<span id="room_temp">32</span>kW</li>
+            <li>SOC：<span id="voltage">80%</span></li>
+            <li>电网输入功率：<span id="outlet_temp">234</span>kW</li>
+        </ul>
+    </div>
+</div>
+<script>
+
+    $(function(){
+        get3Date()
+        $('.leftMenu .menus').click(function(){
+            $(this).parent('.leftMenu').toggleClass('tab2');
+            if($(this).parent('.leftMenu').hasClass('tab2')){
+                $('.leftTab1').hide();
+                $('.leftTab2').show();
+            }else{
+                $('.leftTab1').show();
+                $('.leftTab2').hide();
+            }
+        })
+        $('.rightMenu .menus').click(function(){
+            var c = $(this).attr('class');
+            $(this).parent('.rightMenu').removeClass().addClass('rightMenu '+c);
+            var t = $(this).attr('data');
+            $('.right'+t).show().siblings().hide()
+        })
+
+        $('.rightClickButtom').click(function(){
+            window.location.href = 'substation.html?sta=sssssss'
+        })
+
+        var fontsize = $('html').css('fontSize').split('px')[0];
+        $('.elecSta').width($('.elecSta').parent('li').width());
+        $('#map').width($('#map').parent('.mainMMain').width());
+        var eleStaObj = {};
+        eleStaObj.data = [eleSta,eleSta2,eleSta3,eleSta4];
+        eleStaObj.id = "elecSta";
+        eleStaObj.unit = 'kW·h';
+        eleStaObj.color = ['#d3585a','#0c96ee','#0b9e84','#d9da24'];
+        eleStaObj.type = ['solid','solid','solid','dashed'];
+        eleStaObj.fontSize = fontsize;
+        myCharts(eleStaObj);
+
+        var eleStaObj2 = {};
+        eleStaObj2.data = [eleSta,eleSta2,eleSta3];
+        eleStaObj2.id = "elecSta2";
+        eleStaObj2.color = ['#d3585a','#0c96ee','#0b9e84'];
+        eleStaObj2.type = ['solid','solid','solid'];
+        eleStaObj2.fontSize = fontsize;
+        myCharts2(eleStaObj2);
+        var eleStaObj3 = {};
+        eleStaObj3.data = [eleSta,eleSta2,eleSta3];
+        eleStaObj3.id = "elecSta3";
+        eleStaObj3.color = ['#0d9e7d','rgba(8,91,185,0.7)','#a0cd58'];
+        eleStaObj3.type = ['solid','solid','solid'];
+        eleStaObj3.fontSize = fontsize;
+        myCharts3(eleStaObj3);
+
+        var eleStaObj4 = {};
+        eleStaObj4.data = [eleSta,eleSta2,eleSta3];
+        eleStaObj4.id = "elecSta4";
+        eleStaObj4.color = ['#9ecd59','#075bd5','#601d86'];
+        eleStaObj4.type = ['solid','solid','solid'];
+        eleStaObj4.fontSize = fontsize;
+        myCharts4(eleStaObj4);
+
+
+
+
+
+
+        var eleStaObj5 = {};
+        eleStaObj5.data = [get3MVal(),get3MVal(),get3MVal()];
+        eleStaObj5.id = "elecSta5";
+        eleStaObj5.color = ['#0b9e84','#0c96ee','#d3585a'];
+        eleStaObj5.type = ['solid','solid','solid'];
+        eleStaObj5.fontSize = fontsize;
+        myCharts5(eleStaObj5);
+
+        var eleStaObj6 = {};
+        eleStaObj6.data = [get3MVal(),get3MVal()];
+        eleStaObj6.id = "elecSta6";
+        eleStaObj6.color = ['#0b9e84','#0c96ee'];
+        eleStaObj6.type = ['solid','solid','solid'];
+        eleStaObj6.fontSize = fontsize;
+        myCharts6(eleStaObj6);
+
+        var eleStaObj7 = {};
+        eleStaObj7.data = [get3MVal(),get3MVal()];
+        eleStaObj7.id = "elecSta7";
+        eleStaObj7.color = ['#0b9e84','#d3585a'];
+        eleStaObj7.type = ['solid','solid','solid'];
+        eleStaObj7.fontSize = fontsize;
+        myCharts7(eleStaObj7);
+        var eleStaObj8 = {};
+        eleStaObj8.data = [get3MVal(),get3MVal(),get3MVal()];
+        eleStaObj8.id = "elecSta8";
+        eleStaObj8.color = ['#d3585a','#0c96ee','#0b9e84'];
+        eleStaObj8.type = ['solid','solid','solid'];
+        eleStaObj8.fontSize = fontsize;
+        myCharts8(eleStaObj8);
+
+
+
+        // 右侧
+        var rchartObj = {};
+        rchartObj.data = [eleSta,eleSta2,eleSta3,eleSta4];
+        rchartObj.id = "rchart1";
+        rchartObj.unit = 'kW·h';
+        rchartObj.color = ['#d3585a','#0c96ee','#0b9e84','#d9da24'];
+        rchartObj.type = ['solid','solid','solid','dashed'];
+        rchartObj.fontSize = fontsize;
+        myCharts(rchartObj);
+        var rchartObj2 = {};
+        rchartObj2.data = [eleSta,eleSta2,eleSta3,eleSta4];
+        rchartObj2.id = "rchart2";
+        rchartObj2.unit = 'kW·h';
+        rchartObj2.color = ['#d3585a','#0c96ee','#0b9e84','#d9da24'];
+        rchartObj2.type = ['solid','solid','solid','solid'];
+        rchartObj2.fontSize = fontsize;
+        myCharts(rchartObj2);
+        var rchartObj3 = {};
+        rchartObj3.data = [eleSta,eleSta2,eleSta3];
+        rchartObj3.id = "rchart3";
+        rchartObj3.color = ['#0d9e7d','rgba(8,91,185,0.7)','#a0cd58'];
+        rchartObj3.type = ['solid','solid','solid'];
+        rchartObj3.fontSize = fontsize;
+        myCharts3(rchartObj3);
+
+        var rchartObj4 = {};
+        rchartObj4.data = [eleSta,eleSta2,eleSta3];
+        rchartObj4.id = "rchart4";
+        rchartObj4.color = ['#9ecd59','#075bd5','#601d86'];
+        rchartObj4.type = ['solid','solid','solid'];
+        rchartObj4.fontSize = fontsize;
+        myCharts4(rchartObj4);
+
+
+
+        var rchartObj5 = {};
+        rchartObj5.data = [get3MVal(),get3MVal(),get3MVal()];
+        rchartObj5.id = "rchart5";
+        rchartObj5.color = ['#0b9e84','#0c96ee','#d3585a'];
+        rchartObj5.type = ['solid','solid','solid'];
+        rchartObj5.fontSize = fontsize;
+        myCharts5(rchartObj5);
+
+        var rchartObj6 = {};
+        rchartObj6.data = [get3MVal(),get3MVal()];
+        rchartObj6.id = "rchart6";
+        rchartObj6.color = ['#0b9e84','#0c96ee'];
+        rchartObj6.type = ['solid','solid','solid'];
+        rchartObj6.fontSize = fontsize;
+        myCharts6(rchartObj6);
+
+        var rchartObj7 = {};
+        rchartObj7.data = [get3MVal(),get3MVal()];
+        rchartObj7.id = "rchart7";
+        rchartObj7.color = ['#0b9e84','#d3585a'];
+        rchartObj7.type = ['solid','solid','solid'];
+        rchartObj7.fontSize = fontsize;
+        myCharts7(rchartObj7);
+        var rchartObj8 = {};
+        rchartObj8.data = [get3MVal(),get3MVal(),get3MVal()];
+        rchartObj8.id = "rchart8";
+        rchartObj8.color = ['#d3585a','#0c96ee','#0b9e84'];
+        rchartObj8.type = ['solid','solid','solid'];
+        rchartObj8.fontSize = fontsize;
+        myCharts8(rchartObj8);
+
+
+        map(stationList);
+
+
+    })
+</script>
+</body>
+</html>

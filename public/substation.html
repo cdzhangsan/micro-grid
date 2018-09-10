@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>杭州光储式公用充电站智能监控系统</title>
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
+    <link rel="stylesheet" type="text/css" href="css/iconfont.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <script src="js/fontSize.js"></script>
+    <script src="js/jquery-1.7.2.min.js"></script>
+    <script src="js/echarts.common.min.js"></script>
+    <script src="js/dataTest.js"></script>
+    <script src="js/util.js"></script>
+
+</head>
+<body class="mainBody">
+<div class="wrapper substation">
+    <div class="topBanner"></div>
+    <div class="mainLeft">
+        <div class="leftClickButtom"></div>
+        <div class="lineLeftTop"></div>
+        <div class="leftMenu ">
+            <span class="menus menu1">光伏设备</span>
+            <span class="menus menu2">充电设备</span>
+        </div>
+        <div class="leftMain">
+            <div class="leftTab1">
+                <ul class="leftTopMain">
+                    <li>
+                        <div>
+                            <p>今日发电量</p>
+                            <p><span>2.999</span> kWh</p>
+                        </div>
+                        <div class="nobb">
+                            <p>今日发电量</p>
+                            <p><span>2.999</span> kW</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div>
+                            <p>总发电量</p>
+                            <p><span>242.9</span> kWh</p>
+                        </div>
+                        <div class="nobb">
+                            <p>发电小时数</p>
+                            <p><span>156</span> H</p>
+                        </div>
+                    </li>
+                    <li class="noright">
+                        <div>
+                            <p>CO2减排量</p>
+                            <p><span>299.9</span> Kg</p>
+                        </div>
+                        <div class="nobb">
+                            <p>今日发电量</p>
+                            <p><span>2.999</span> kWh</p>
+                        </div>
+                    </li>
+                </ul>
+                <div class="leftMMain">
+                    <div class="runStatusMain">
+                        <div class="runStatus ok">运行正常</div>
+                        <div class="runStatus err">
+                            <p>故障类型</p>
+                            <span>连接错误</span>
+                        </div>
+                    </div>
+                    <div class="runChart">
+                        <div class="runChartTitle">实时发电功率曲线</div>
+                        <div id="realTimePower"></div>
+                    </div>
+                    <div class="monthChart">
+                        <div class="legendBox">
+                            <span><i class="lcolor1"></i>每日发电量</span>
+                            <span><i class="lcolor3"></i>每日发电时长</span>
+                        </div>
+                        <div id="monthPower"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="leftTab2">
+                <ul class="chargingPile">
+                    <li>
+                        <div class="chargingPileTop">
+                            <div class="pileNum">
+                                <div>1</div>
+                                <span>号桩</span>
+                            </div>
+                            <div class="pileStatus">
+                                <p class="standby">待机</p>
+                            </div>
+                        </div>
+                        <div class="chargingPileFoot">
+                            <div class="chargingPileStatus "></div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="chargingPileTop">
+                            <div class="pileNum">
+                                <div>2</div>
+                                <span>号桩</span>
+                            </div>
+                            <div class="pileStatus">
+                                <p class="err">故障</p>
+                            </div>
+                        </div>
+                        <div class="chargingPileFoot">
+                            <div class="chargingPileStatus cdz_err"></div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="chargingPileTop">
+                            <div class="pileNum">
+                                <div>3</div>
+                                <span>号桩</span>
+                            </div>
+                            <div class="pileStatus">
+                                <p class="finish">充电完成</p>
+                            </div>
+                        </div>
+                        <div class="chargingPileFoot">
+                            <div class="chargingPileStatus cdz_js"></div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="chargingPileTop">
+                            <div class="pileNum">
+                                <div>4</div>
+                                <span>号桩</span>
+                            </div>
+                            <div class="pileStatus">
+                                <div class="charging">
+                                    <p>当前SOC:98%</p>
+                                    <p>输出电压:450V</p>
+                                    <p>输出电流:120A</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chargingPileFoot">
+                            <div class="chargingPileStatus cdz_ing"></div>
+                        </div>
+                    </li>
+                </ul>
+                <div class="powerChart">
+                    <div class="legendBox">
+                        <span><i class="lcolor1"></i>实时充电总功率</span>
+                        <span><i class="lcolor3"></i>日累计充电量</span>
+                    </div>
+                    <div id="powerChart"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mainMiddle">
+        <div class="maintop">
+            <h2 class="text-gradient">杭州站在线监控</h2>
+            <div class="nowTime">2018-07-26 14:25:30</div>
+        </div>
+        <div class="mainMMain">
+            <div class="subMainbg">
+                <div class="runType">实时运行方式：并网/孤网</div>
+                <div class="graphBox">
+                    <div class="powerGrid"></div>
+                    <div class="pLine">
+                        <div class="verticalLine"></div>
+                    </div>
+                    <div class="graph2p">
+                        <div class="graph2pLeft">
+                            <div class="graph2pLeftLine">
+                                <div class="verticalLine"></div>
+                                <div class="ac_dc"></div>
+                                <div class="verticalLine"></div>
+                            </div>
+                            <div class="graph2pLeftMain">
+                                <div class="graph2pLeftMainLeft">
+                                    <div class="verticalLine"></div>
+                                    <div class="dc_dc" data="1"></div>
+                                    <div class="verticalLine height2"></div>
+                                    <div class="socNumber">
+                                        <p>76.66</p>
+                                        <span>SOC</span>
+                                    </div>
+                                    <div class="battery battery3"></div>
+                                </div>
+                                <div class="graph2pLeftMainRight">
+                                    <div class="cdztop">
+                                        <div class="verticalLine"></div>
+                                        <div class="dc_dc" data="2"></div>
+                                        <div class="verticalLine"></div>
+                                    </div>
+                                    <div class="pileBox">
+                                        <div class="verticalLine"></div>
+                                    </div>
+                                    <div class="pileBox">
+                                        <div class="verticalLine"></div>
+                                        <div class="pileImg"></div>
+                                        <div class="pileImg"></div>
+                                    </div>
+                                    <div class="pileBox2">
+                                        <div class="verticalLine"></div>
+                                        <div class="pileImg"></div>
+                                        <div class="pileImg"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="graph2pRight">
+                            <div class="graph2pRightLine">
+                                <div class="verticalLine height3"></div>
+                                <div class="dc_dc" data="3"></div>
+                                <div class="verticalLine height2"></div>
+                            </div>
+                            <div class="graph2pRightMain">
+                                <div class="graph2pRightMainLine"></div>
+                                <div class="graph2pRightMainMain">
+                                    <ul>
+                                        <li>
+                                            <div class="verticalLine height15"></div>
+                                            <div class="panelBox"></div>
+                                        </li>
+                                        <li>
+                                            <div class="verticalLine height15"></div>
+                                            <div class="panelBox"></div>
+                                        </li>
+                                        <li>
+                                            <div class="verticalLine height15"></div>
+                                            <div class="panelBox"></div>
+                                        </li>
+                                        <li>
+                                            <div class="verticalLine height15"></div>
+                                            <div class="panelBox"></div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="rightTitle">智能微网监控系统</div>
+            </div>
+
+        </div>
+    </div>
+    <div class="mainRight">
+
+        <div class="lineRightTop"></div>
+        <div class="rightMenu">
+            <span class="menus menu1" data="Tab1">储能设备</span>
+            <span class="menus menu2" data="Tab2">数据统计</span>
+        </div>
+        <div class="rightMain">
+            <div class="rightTab rightTab1">
+                <div class="rightTabLeft">
+                    <ul class="textList">
+                        <li class="mr">实时功率<span>23kW</span></li>
+                        <li class="mr">可充电容量<span>23kWh</span></li>
+                        <li>可放电容量<span>23kWh</span></li>
+                    </ul>
+                    <ul class="socsoh">
+                        <li class="soc">
+                            <div>
+                                <span>25%</span>
+                            </div>
+                            <p>SOC</p>
+                        </li>
+                        <li class="soh">
+                            <div>
+                                <span>25%</span>
+                            </div>
+                            <p>SOH</p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="rightTabRight">
+                    <div class="rightTabRightChart">
+                        <h3>实时功率</h3>
+                        <div id="powerCurve"></div>
+                    </div>
+                    <div class="rightMTitle">今日累计放电量：39 kWh 累计节省成本：30万元</div>
+                    <div class="rightTabRightChart">
+                        <h3>月度放电量</h3>
+                        <div id="dischargeCurve"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="rightTab rightTab2">
+                <div class="rightTab2Left">
+                    <ul>
+                        <li>光伏装机容量：<span>300</span> kWh</li>
+                        <li>储能容量：<span>300</span> kWh</li>
+                        <li>充电装机功率：<span>300</span> kWh</li>
+                        <li>日发电量：<span>300</span> kWh</li>
+                        <li>月发电量：<span>300</span> kWh</li>
+                        <li>年发电量：<span>300</span> kWh</li>
+                        <li>累计发电量：<span>1234</span> MWh</li>
+                        <li>累计上网电量：<span>1234</span> kWh</li>
+                        <li>累计充电量：<span>1234</span> MWh</li>
+                        <li>电网侧累计电量：<span>1234</span> MWh</li>
+                        <li>微网系统频率：<span>50</span> Hz</li>
+                        <li>CO2减排量：<span>12344</span> kg</li>
+                        <li>温度/辐射度：<span>30℃/234</span></li>
+                        <li>投运时间：2018-10-30</li>
+                    </ul>
+                </div>
+                <div class="rightTab2Right">
+                    <div class="rightTab2RightM">
+                    <div class="legendBox">
+                        <span><i class="lcolor1"></i>月度节省电费</span>
+                        <span><i class="lcolor3"></i>月度绿色用能</span>
+                    </div>
+                        <div id="saveElectricity"></div>
+                    </div>
+                    <div class="rightTab2RightM2">
+                    <h3>月度用电指标</h3>
+                    <div class="legendBox">
+                        <span><i class="lcolor1"></i>发电量</span>
+                        <span><i class="lcolor2"></i>上网电量</span>
+                        <span><i class="lcolor4"></i>充电量</span>
+                    </div>
+                    <div id="monthlyPowerEle"></div>
+                    </div>
+                    <div class="rightTab2RightFoot">
+                        <div class="saveCharges">
+                            <p>累计节省电费</p>
+                            <div class="saveChargesVal">234.22</div>
+                             <div>万元</div>
+                        </div>
+                        <div class="greenEnergy">
+                            <div class="greenEnergyVal">34%</div>
+                            <p>绿色用能比例</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div id="popWin" class="popWin subPop">
+
+    <div class="winMain">
+        <ul data="1">
+            <li>直流母线电压：<span id="gfcl">234</span>V</li>
+            <li>直流母线电流：<span id="inner_temp">130</span>A</li>
+            <li>直流断路器状态：<span id="current_status">122</span></li>
+            <li>电堆电压：<span id="current">56</span>V</li>
+            <li>电堆电流：<span id="room_temp">32</span>A</li>
+            <li>单元最高温度：<span id="voltage">40</span>℃</li>
+            <li>单元最低温度：<span id="outlet_temp">40</span>℃</li>
+            <li>单元最大电压：<span id="voltage">55</span>V</li>
+            <li>单元最小电压：<span id="outlet_temp">45</span>V</li>
+        </ul>
+        <ul data="2">
+            <li>充电：<span id="gfcl">2</span></li>
+            <li>待机：<span id="inner_temp">1</span></li>
+            <li>故障：<span id="current_status">1</span></li>
+        </ul>
+        <ul data="3">
+            <li>直流侧（DC）：</li>
+            <li>直流母线电压：<span id="inner_temp">130</span>V</li>
+            <li>直流母线电流：<span id="current_status">122</span>A</li>
+            <li>交流侧（AC）：</li>
+            <li>AB相电压：<span id="room_temp">380</span>V</li>
+            <li>BC相电压：<span id="voltage">380</span>V</li>
+            <li>CA相电压：<span id="outlet_temp">380</span>V</li>
+            <li>A相电压：<span id="room_temp">380</span>V</li>
+            <li>B相电压：<span id="voltage">380</span>V</li>
+            <li>C相电压：<span id="outlet_temp">380</span>V</li>
+        </ul>
+    </div>
+</div>
+<script>
+
+    $(function(){
+
+        $('.leftMenu .menus').click(function(){
+            $(this).parent('.leftMenu').toggleClass('tab2');
+            if($(this).parent('.leftMenu').hasClass('tab2')){
+                $('.leftTab1').hide();
+                $('.leftTab2').show();
+            }else{
+                $('.leftTab1').show();
+                $('.leftTab2').hide();
+            }
+        })
+        $('.rightMenu .menus').click(function(){
+            var c = $(this).attr('class');
+            $(this).parent('.rightMenu').removeClass().addClass('rightMenu '+c);
+            var t = $(this).attr('data');
+            $('.right'+t).show().siblings().hide()
+        })
+        $('.leftClickButtom').click(function(){
+            window.location.href = 'index.html'
+        })
+
+        var fontsize = $('html').css('fontSize').split('px')[0];
+        $('#realTimePower').width($('.runChart').width());
+        $('#monthPower').width($('.monthChart').width());
+        $('#powerChart').width($('.powerChart').width());
+        $('#powerCurve').width($('.rightTabRightChart').width());
+        $('#saveElectricity,#monthlyPowerEle').width($('.rightTab2Right').width());
+        var realObj = {};
+        realObj.data = [eleSta];
+        realObj.id = "realTimePower";
+        realObj.unit = 'kW·h';
+        realObj.color = ['#d3585a'];
+        realObj.type = ['solid'];
+        realObj.fontSize = fontsize;
+        subCharts(realObj);
+        var monthPower = {};
+        monthPower.data = [eleSta6,eleSta5];
+        monthPower.id = "monthPower";
+        monthPower.color = ['#0d9e7d','#d3585a'];
+        monthPower.type = ['solid','solid'];
+        monthPower.fontSize = fontsize;
+        monthChart(monthPower);
+        var powerChart = {};
+        powerChart.data = [eleSta,eleSta2];
+        powerChart.id = "powerChart";
+        powerChart.color = ['#0d9e7d','#d3585a'];
+        powerChart.type = ['solid','solid'];
+        powerChart.fontSize = fontsize;
+        powerChartFun(powerChart);
+        var powerCurve = {};
+        powerCurve.data = [eleSta];
+        powerCurve.id = "powerCurve";
+        powerCurve.unit = 'kW·h';
+        powerCurve.color = ['#d3585a'];
+        powerCurve.type = ['solid'];
+        powerCurve.fontSize = fontsize;
+        subCharts(powerCurve);
+
+        var dischargeCurve = {};
+        dischargeCurve.data = [eleSta6];
+        dischargeCurve.id = "dischargeCurve";
+        dischargeCurve.color = ['#0d9e7d','#d3585a'];
+        dischargeCurve.type = ['solid','solid'];
+        dischargeCurve.fontSize = fontsize;
+        dischargeCurveFun(dischargeCurve);
+
+
+        var saveEle = {};
+        saveEle.data = [eleSta6,eleSta5];
+        saveEle.id = "saveElectricity";
+        saveEle.color = ['#0d9e7d','#d3585a'];
+        saveEle.type = ['solid','solid'];
+        saveEle.fontSize = fontsize;
+        saveEleFun(saveEle);
+
+        var powerEle = {};
+        powerEle.data = [eleSta7,eleSta8,eleSta9];
+        powerEle.id = "monthlyPowerEle";
+        powerEle.color = ['#0d9e7d','#d3585a','#d9da24'];
+        powerEle.type = ['solid','solid'];
+        powerEle.fontSize = fontsize;
+        monthlyPowerEle(powerEle);
+        // 组网图说明
+        $('.dc_dc').mouseover(function(e){
+            var n = $(this).attr('data');
+            var CX = e.clientX + 10;
+            var CY = e.clientY + 10;
+            CY + 180 > $(window).height() ? CY = CY - 180 : CY;
+            $('#popWin').css({'left': CX, 'top': CY, marginTop: 0, marginLeft: 0});
+            $('#popWin .winMain').find('ul').each(function(){
+                if($(this).attr('data')==n){
+                    $(this).show()
+                }
+            })
+            $('#popWin').show()
+        })
+        $('.dc_dc').mouseout(function(){
+            $('#popWin .winMain').find('ul').hide();
+            $('#popWin').hide()
+        })
+    })
+</script>
+</body>
+</html>
