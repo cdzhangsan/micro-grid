@@ -199,9 +199,9 @@ function myCharts(obj) {
         series: [
             {
                 name:'光伏出力',
-            data: obj.data[0],
-            type: 'line',
-            lineStyle: {
+                data: obj.data[0],
+                type: 'line',
+                lineStyle: {
                 width:1,
                 type:obj.type[0],
                 color: obj.color[0]
