@@ -1,27 +1,8 @@
-function ajax_get_data(url_str,  succ_str) {
-    $.ajax({
-        type: "GET",
-        url: url_str,
-        success: function (data) {
-            try {
-                succ_str(data);
-            } catch (err) {
-            }
-        },
-        async: true,
-        error: function () {
-            console.log('失败！');
-        },//err_str,
-        timeout: 4000,
-        dataType: "json",
-        cache: false
-    });
-}
-function ajax_post_get_data(url_str,data_obj, succ_str) {
+function ajax_get_data(url_str, data_obj, succ_str) {
     $.ajax({
         type: "POST",
         url: url_str,
-        data:data_obj,
+        data: data_obj,
         success: function (data) {
             try {
                 succ_str(data);
@@ -37,8 +18,6 @@ function ajax_post_get_data(url_str,data_obj, succ_str) {
         cache: false
     });
 }
-
-
 
 function ajax_post(url_str, data_obj, succ_str) {
     $.ajax({
@@ -129,18 +108,19 @@ function CurentTime() {
 
     _time += hh + ":";
     if (mm < 10) _time += '0';
-    _time += mm ;
-    // if (ss < 10) _time += '0';
-    // _time += ss;
-    var arr = {};
-    arr.time = _time;
-    arr.date = clock;
-    return (arr);
+    _time += mm + ":";
+    if (ss < 10) _time += '0';
+    _time += ss;
+    // var arr = {};
+    // arr.time = _time;
+    // arr.date = clock;
+    return (clock+' '+ _time);
 }
 
-function shwoNowTime() {
-    $('.topbanner .time').html(CurentTime().time);
-    $('.topbanner .date').html(CurentTime().date)
+function showNowTime(){
+    setInterval(function(){
+        $('.nowTime').html(CurentTime())
+    },1000)
 }
 
 
@@ -199,9 +179,9 @@ function myCharts(obj) {
         series: [
             {
                 name:'光伏出力',
-                data: obj.data[0],
-                type: 'line',
-                lineStyle: {
+            data: obj.data[0],
+            type: 'line',
+            lineStyle: {
                 width:1,
                 type:obj.type[0],
                 color: obj.color[0]
@@ -668,7 +648,7 @@ var mapConfig = [
 
 function map(data) {
     var map = new BMap.Map('map', {enableMapClick:false});    // 创建Map实例
-    map.centerAndZoom(new BMap.Point(104.070778, 30.654925), 12);  // 初始化地图,设置中心点坐标和地图级别
+    map.centerAndZoom(new BMap.Point(104.092876, 30.405371), 15);  // 初始化地图,设置中心点坐标和地图级别
     //添加地图类型控件
     map.addControl(new BMap.MapTypeControl({
         mapTypes: [
@@ -681,8 +661,8 @@ function map(data) {
         styleJson: mapConfig
     });
     var fontsize = 1*$('html').css('fontSize').split('px')[0];
-    var myIcon1 = new BMap.Icon("img/mapicon.png", new BMap.Size(30,30));
-    var myIcon2 = new BMap.Icon("img/mapicon2.png", new BMap.Size(30,30));
+    var myIcon1 = new BMap.Icon("img/mapicon2.png", new BMap.Size(30,30));
+    var myIcon2 = new BMap.Icon("img/mapicon.png", new BMap.Size(30,30));
     var pointArray = new Array();
     var tio;
     var s=0;
@@ -724,7 +704,7 @@ function map(data) {
     }
 
     //让所有点在视野范围内
-    map.setViewport(pointArray);
+    // map.setViewport(pointArray);
 
     //获取覆盖物位置
     function attribute(e, obj) {
@@ -1744,4 +1724,101 @@ function monthlyPowerEle(obj) {
 
     myChart.setOption(lineOption);
     myChart.resize()
+}
+
+
+function get_realtime_echarts(id) {
+    var myChart = echarts.init(document.getElementById(id));
+    var chartsdata =  getrealtimechartdata();
+    var option = {
+        title: {
+            text: '实时功率'
+        },
+        grid:{
+            left:'20%',
+            right:'0',
+            bottom:'10%'
+        },
+        tooltip: {
+            trigger: 'axis'
+        },
+        legend: {
+            top:30,
+            data:['功率（W）']
+        },
+        toolbox: {
+            feature: {
+            }
+        },
+        xAxis: {
+            type: 'category',
+            boundaryGap: false,
+            data: getdata(chartsdata,'xAxis')
+        },
+        yAxis: {
+            type: 'value',
+            name: 'W',
+            min: 'dataMin',
+            nameLocation: 'end'
+        },
+        series: [
+            {
+                name:'功率（W）',
+                type:'line',
+                smooth:true, //平滑曲线
+                stack: 'a',
+                data:getdata(chartsdata,'series')
+            }
+
+        ]
+    };
+
+
+    myChart.setOption(option);
+    setInterval(function () {
+        var dynamicchartsdata = getrealtimechartdata();
+        myChart.setOption({
+            xAxis: {
+                data: getdata(dynamicchartsdata,'xAxis')
+            },
+            series: [{
+                name:'功率（W）',
+                type:'line',
+                data: getdata(dynamicchartsdata,'series')
+            }]
+        });
+    }, 20000);
+
+}
+
+function getrealtimechartdata() {
+    var chartsdata=[{time: "2018/10/12 下午5:45:46", p: 130},{time: "2018/10/12 下午5:45:46", p: 130},{time: "2018/10/12 下午5:45:46", p: 130}];
+    // $.ajax({url:'/station/realtimedata.json',
+    //     type : "get",
+    //     dataType: 'json',
+    //     async:false, //同步执行
+    //     success:function(data){
+    //         var myDate = new Date();
+    //         var obj={};
+    //         obj.time=myDate.toLocaleString();
+    //         obj.p = data.data.powerVal;
+    //         console.log(obj)
+    //         chartsdata.push(obj);
+    //     }
+    // });
+    return chartsdata;
+}
+function getdata(chartsdata,type) {
+    var xAxisdata = [];
+    var seriesdata = [];
+    for (var i = chartsdata.length-1; i >= 0; i--) {
+        xAxisdata.push(chartsdata[i].time);
+        seriesdata.push(chartsdata[i].p);
+    }
+    if (type == 'xAxis') {
+
+        return xAxisdata;
+    } else if (type == 'series')  {
+        return seriesdata;
+    }
 }

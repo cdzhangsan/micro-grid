@@ -1,0 +1,14 @@
+{
+  "code":1,
+  "data":{
+    "todayGeneratingcapacity":1300
+  ,"totalPower":1240
+  ,"totalPowerGeneration":34523
+  ,"generationHours":12500
+  ,"CO2Reduction":3242
+  ,"state":1
+  ,"realTimePower":[133,122,133,111,133,111,145,164,112,143,133,122,133,111,133,111,145,164]
+  ,"dayGeneration":[133,122,133,111,133,111,145,164,112,143,133,122,133,111,133,111,145,164]
+  ,"dayGenerationHours":[12,13,13,11,13,8,8,7,7,7,7,7,6,6,6,8,8,8,12,13,13,11,13,8,8,7,7,7,7]
+  }
+}

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>杭州光储式公用充电站智能监控系统</title>
+    <title>10号楼实验室智能监控系统</title>
     <link rel="stylesheet" type="text/css" href="css/reset.css">
     <link rel="stylesheet" type="text/css" href="css/iconfont.css">
     <link rel="stylesheet" type="text/css" href="css/main.css">
@@ -29,31 +29,29 @@
                     <li>
                         <div>
                             <p>今日发电量</p>
-                            <p><span>2.999</span> kWh</p>
+                            <p><span id="todayGeneratingcapacity"></span> kWh</p>
                         </div>
                         <div class="nobb">
-                            <p>今日发电量</p>
-                            <p><span>2.999</span> kW</p>
+                            <p>当前发电总功率</p>
+                            <p><span id="totalPower"></span> kW</p>
                         </div>
                     </li>
                     <li>
-                        <div>
+                        <div class="total">
                             <p>总发电量</p>
-                            <p><span>242.9</span> kWh</p>
+                            <p><span id="totalPowerGeneration"></span> kWh</p>
                         </div>
-                        <div class="nobb">
-                            <p>发电小时数</p>
-                            <p><span>156</span> H</p>
-                        </div>
+
                     </li>
                     <li class="noright">
-                        <div>
-                            <p>CO2减排量</p>
-                            <p><span>299.9</span> Kg</p>
+
+                        <div >
+                            <p>发电小时数</p>
+                            <p><span id="generationHours"></span> H</p>
                         </div>
                         <div class="nobb">
-                            <p>今日发电量</p>
-                            <p><span>2.999</span> kWh</p>
+                            <p>CO2减排量</p>
+                            <p><span id="CO2Reduction"></span> Kg</p>
                         </div>
                     </li>
                 </ul>
@@ -153,16 +151,24 @@
     </div>
     <div class="mainMiddle">
         <div class="maintop">
-            <h2 class="text-gradient">杭州站在线监控</h2>
-            <div class="nowTime">2018-07-26 14:25:30</div>
+            <h2 class="text-gradient">10号楼实验室智能监控系统</h2>
+            <div class="nowTime"></div>
         </div>
         <div class="mainMMain">
             <div class="subMainbg">
-                <div class="runType">实时运行方式：并网/孤网</div>
+                <div class="runType">实时运行方式：<span id="runType">并网/孤网</span></div>
                 <div class="graphBox">
                     <div class="powerGrid"></div>
-                    <div class="pLine">
+                    <div class="transformerToPowerGrid">
+                        <div class="jtl"></div>
+                    </div>
+                    <div class="transformer"></div>
+                    <div class="pLine topPline">
+                        <div class="jtx"></div>
+                        <div class="jtl l1"></div>
                         <div class="verticalLine"></div>
+                        <div class="jtl"></div>
+                        <div class="jtl r2"></div>
                     </div>
                     <div class="graph2p">
                         <div class="graph2pLeft">
@@ -170,19 +176,23 @@
                                 <div class="verticalLine"></div>
                                 <div class="ac_dc"></div>
                                 <div class="verticalLine"></div>
+                                <div class="jtl"></div>
+                                <div class="jty"></div>
                             </div>
                             <div class="graph2pLeftMain">
                                 <div class="graph2pLeftMainLeft">
                                     <div class="verticalLine"></div>
                                     <div class="dc_dc" data="1"></div>
+                                    <div class="jtx"></div>
                                     <div class="verticalLine height2"></div>
                                     <div class="socNumber">
-                                        <p>76.66</p>
+                                        <p><em id="t_soc"></em>%</p>
                                         <span>SOC</span>
                                     </div>
                                     <div class="battery battery3"></div>
                                 </div>
                                 <div class="graph2pLeftMainRight">
+                                    <div class="jtx2"></div>
                                     <div class="cdztop">
                                         <div class="verticalLine"></div>
                                         <div class="dc_dc" data="2"></div>
@@ -206,8 +216,10 @@
                         </div>
                         <div class="graph2pRight">
                             <div class="graph2pRightLine">
+                                <div class="jts"></div>
                                 <div class="verticalLine height3"></div>
                                 <div class="dc_dc" data="3"></div>
+                                <div class="jts f1"></div>
                                 <div class="verticalLine height2"></div>
                             </div>
                             <div class="graph2pRightMain">
@@ -253,20 +265,20 @@
             <div class="rightTab rightTab1">
                 <div class="rightTabLeft">
                     <ul class="textList">
-                        <li class="mr">实时功率<span>23kW</span></li>
-                        <li class="mr">可充电容量<span>23kWh</span></li>
-                        <li>可放电容量<span>23kWh</span></li>
+                        <li class="mr">实时功率<span ><em id="s_realTimePower">23</em>kW</span></li>
+                        <li class="mr">可充电容量<span><em  id="s_chargePower">23</em>kWh</span></li>
+                        <li>可放电容量<span><em id="s_dischargePower">23</em>kWh</span></li>
                     </ul>
                     <ul class="socsoh">
                         <li class="soc">
                             <div>
-                                <span>25%</span>
+                                <span><em id="s_soc">25</em>%</span>
                             </div>
                             <p>SOC</p>
                         </li>
                         <li class="soh">
                             <div>
-                                <span>25%</span>
+                                <span><em id="s_soh">25</em>%</span>
                             </div>
                             <p>SOH</p>
                         </li>
@@ -277,7 +289,7 @@
                         <h3>实时功率</h3>
                         <div id="powerCurve"></div>
                     </div>
-                    <div class="rightMTitle">今日累计放电量：39 kWh 累计节省成本：30万元</div>
+                    <div class="rightMTitle">今日累计放电量：<span id="dayTotalcharge"></span> kWh 累计节省成本：<span id="totalCostSaving"></span>万元</div>
                     <div class="rightTabRightChart">
                         <h3>月度放电量</h3>
                         <div id="dischargeCurve"></div>
@@ -287,20 +299,20 @@
             <div class="rightTab rightTab2">
                 <div class="rightTab2Left">
                     <ul>
-                        <li>光伏装机容量：<span>300</span> kWh</li>
-                        <li>储能容量：<span>300</span> kWh</li>
-                        <li>充电装机功率：<span>300</span> kWh</li>
-                        <li>日发电量：<span>300</span> kWh</li>
-                        <li>月发电量：<span>300</span> kWh</li>
-                        <li>年发电量：<span>300</span> kWh</li>
-                        <li>累计发电量：<span>1234</span> MWh</li>
-                        <li>累计上网电量：<span>1234</span> kWh</li>
-                        <li>累计充电量：<span>1234</span> MWh</li>
-                        <li>电网侧累计电量：<span>1234</span> MWh</li>
-                        <li>微网系统频率：<span>50</span> Hz</li>
-                        <li>CO2减排量：<span>12344</span> kg</li>
-                        <li>温度/辐射度：<span>30℃/234</span></li>
-                        <li>投运时间：2018-10-30</li>
+                        <li>光伏装机容量：<span id="PVtotalContentPower">300</span> kWh</li>
+                        <li>储能容量：<span id="storageTotalPower">300</span> kWh</li>
+                        <li>充电装机功率：<span id="chargeTotalPower">300</span> kWh</li>
+                        <li>日发电量：<span id="dayGeneration">300</span> kWh</li>
+                        <li>月发电量：<span id="monthGeneration">300</span> kWh</li>
+                        <li>年发电量：<span id="yearGeneration">300</span> kWh</li>
+                        <li>累计发电量：<span id="totalGeneration">1234</span> MWh</li>
+                        <li>累计上网电量：<span id="totalOnGrid">1234</span> kWh</li>
+                        <li>累计充电量：<span id="totalCharge">1234</span> MWh</li>
+                        <li>电网侧累计电量：<span id="gridTotal">1234</span> MWh</li>
+                        <li>微网系统频率：<span id="micGridRate">50</span> Hz</li>
+                        <li>CO2减排量：<span id="tCO2Reduction"></span> kg</li>
+                        <li>温度/辐射度：<span><em id="temperature"></em>℃/<em id="radiance"></em></span></li>
+                        <li>投运时间：<span id="runTime">2018-06-30</span></li>
                     </ul>
                 </div>
                 <div class="rightTab2Right">
@@ -323,11 +335,11 @@
                     <div class="rightTab2RightFoot">
                         <div class="saveCharges">
                             <p>累计节省电费</p>
-                            <div class="saveChargesVal">234.22</div>
+                            <div class="saveChargesVal" id="btotalCostSaving"></div>
                              <div>万元</div>
                         </div>
                         <div class="greenEnergy">
-                            <div class="greenEnergyVal">34%</div>
+                            <div class="greenEnergyVal"><span id="GreenEnergyProp"></span>%</div>
                             <p>绿色用能比例</p>
                         </div>
                     </div>
@@ -342,39 +354,39 @@
 
     <div class="winMain">
         <ul data="1">
-            <li>直流母线电压：<span id="gfcl">234</span>V</li>
-            <li>直流母线电流：<span id="inner_temp">130</span>A</li>
-            <li>直流断路器状态：<span id="current_status">122</span></li>
-            <li>电堆电压：<span id="current">56</span>V</li>
-            <li>电堆电流：<span id="room_temp">32</span>A</li>
-            <li>单元最高温度：<span id="voltage">40</span>℃</li>
-            <li>单元最低温度：<span id="outlet_temp">40</span>℃</li>
-            <li>单元最大电压：<span id="voltage">55</span>V</li>
-            <li>单元最小电压：<span id="outlet_temp">45</span>V</li>
+            <!--<li>直流母线电压：<span id="s_DCbusVoltage"></span>V</li>-->
+            <!--<li>直流母线电流：<span id="s_DCbusCurrent"></span>A</li>-->
+            <!--<li>直流断路器状态：<span id="DCcircuitBreakerState"></span></li>-->
+            <li>电堆电压：<span id="storageVoltage"></span>V</li>
+            <li>电堆电流：<span id="storageCurrent"></span>A</li>
+            <li>单元最高温度：<span id="unitMaxTemperature"></span>℃</li>
+            <li>单元最低温度：<span id="unitMinTemperature"></span>℃</li>
+            <li>单元最大电压：<span id="unitMaxVoltage"></span>V</li>
+            <li>单元最小电压：<span id="unitMinVoltage"></span>V</li>
         </ul>
         <ul data="2">
-            <li>充电：<span id="gfcl">2</span></li>
-            <li>待机：<span id="inner_temp">1</span></li>
-            <li>故障：<span id="current_status">1</span></li>
+            <li>充电：<span id="pileRunning">0</span></li>
+            <li>待机：<span id="pileStandby">0</span></li>
+            <li>故障：<span id="pileFault">0</span></li>
         </ul>
         <ul data="3">
-            <li>直流侧（DC）：</li>
-            <li>直流母线电压：<span id="inner_temp">130</span>V</li>
-            <li>直流母线电流：<span id="current_status">122</span>A</li>
-            <li>交流侧（AC）：</li>
-            <li>AB相电压：<span id="room_temp">380</span>V</li>
-            <li>BC相电压：<span id="voltage">380</span>V</li>
-            <li>CA相电压：<span id="outlet_temp">380</span>V</li>
-            <li>A相电压：<span id="room_temp">380</span>V</li>
-            <li>B相电压：<span id="voltage">380</span>V</li>
-            <li>C相电压：<span id="outlet_temp">380</span>V</li>
+            <!--<li>直流侧（DC）：</li>-->
+            <!--<li>直流母线电压：<span id="PV_DCbusVoltage"></span>V</li>-->
+            <!--<li>直流母线电流：<span id="PV_DCbusCurrent"></span>A</li>-->
+            <!--<li>交流侧（AC）：</li>-->
+            <!--<li>AB相电压：<span id="ab_v"></span>V</li>-->
+            <!--<li>BC相电压：<span id="bc_v"></span>V</li>-->
+            <!--<li>CA相电压：<span id="ca_v"></span>V</li>-->
+            <!--<li>A相电压：<span id="Aa"></span>V</li>-->
+            <!--<li>B相电压：<span id="ba"></span>V</li>-->
+            <!--<li>C相电压：<span id="ca"></span>V</li>-->
         </ul>
     </div>
 </div>
 <script>
-
+    var fontsize = $('html').css('fontSize').split('px')[0];
     $(function(){
-
+        showNowTime();
         $('.leftMenu .menus').click(function(){
             $(this).parent('.leftMenu').toggleClass('tab2');
             if($(this).parent('.leftMenu').hasClass('tab2')){
@@ -395,67 +407,19 @@
             window.location.href = 'index.html'
         })
 
-        var fontsize = $('html').css('fontSize').split('px')[0];
+         fontsize = $('html').css('fontSize').split('px')[0];
         $('#realTimePower').width($('.runChart').width());
         $('#monthPower').width($('.monthChart').width());
         $('#powerChart').width($('.powerChart').width());
         $('#powerCurve').width($('.rightTabRightChart').width());
         $('#saveElectricity,#monthlyPowerEle').width($('.rightTab2Right').width());
-        var realObj = {};
-        realObj.data = [eleSta];
-        realObj.id = "realTimePower";
-        realObj.unit = 'kW·h';
-        realObj.color = ['#d3585a'];
-        realObj.type = ['solid'];
-        realObj.fontSize = fontsize;
-        subCharts(realObj);
-        var monthPower = {};
-        monthPower.data = [eleSta6,eleSta5];
-        monthPower.id = "monthPower";
-        monthPower.color = ['#0d9e7d','#d3585a'];
-        monthPower.type = ['solid','solid'];
-        monthPower.fontSize = fontsize;
-        monthChart(monthPower);
-        var powerChart = {};
-        powerChart.data = [eleSta,eleSta2];
-        powerChart.id = "powerChart";
-        powerChart.color = ['#0d9e7d','#d3585a'];
-        powerChart.type = ['solid','solid'];
-        powerChart.fontSize = fontsize;
-        powerChartFun(powerChart);
-        var powerCurve = {};
-        powerCurve.data = [eleSta];
-        powerCurve.id = "powerCurve";
-        powerCurve.unit = 'kW·h';
-        powerCurve.color = ['#d3585a'];
-        powerCurve.type = ['solid'];
-        powerCurve.fontSize = fontsize;
-        subCharts(powerCurve);
-
-        var dischargeCurve = {};
-        dischargeCurve.data = [eleSta6];
-        dischargeCurve.id = "dischargeCurve";
-        dischargeCurve.color = ['#0d9e7d','#d3585a'];
-        dischargeCurve.type = ['solid','solid'];
-        dischargeCurve.fontSize = fontsize;
-        dischargeCurveFun(dischargeCurve);
+        getdPVinfoData();
+        getchargeInfoData();
+        getstorageInfoData();
+        getTotalInfoData();
+        getTopologicalInfoData();
 
 
-        var saveEle = {};
-        saveEle.data = [eleSta6,eleSta5];
-        saveEle.id = "saveElectricity";
-        saveEle.color = ['#0d9e7d','#d3585a'];
-        saveEle.type = ['solid','solid'];
-        saveEle.fontSize = fontsize;
-        saveEleFun(saveEle);
-
-        var powerEle = {};
-        powerEle.data = [eleSta7,eleSta8,eleSta9];
-        powerEle.id = "monthlyPowerEle";
-        powerEle.color = ['#0d9e7d','#d3585a','#d9da24'];
-        powerEle.type = ['solid','solid'];
-        powerEle.fontSize = fontsize;
-        monthlyPowerEle(powerEle);
         // 组网图说明
         $('.dc_dc').mouseover(function(e){
             var n = $(this).attr('data');
@@ -475,6 +439,138 @@
             $('#popWin').hide()
         })
     })
+
+
+
+
+    function getdPVinfoData(){
+        var url = '/station/dPVinfo.json';
+        var nv = {};
+        nv.id = 'test';
+        ajax_get_data(url,nv,function(data){
+            if(data.code==1){
+                for(var key in data.data){
+                    if(key != 'realTimePower'&& key!='dayGeneration' && key !='dayGenerationHours'&& key !='state'){
+                        $('#'+key).text(data.data[key]);
+                    }else if(key =='state'){
+
+                    }else if(key =='realTimePower'){
+                        var realObj = {};
+                        realObj.data =[data.data.realTimePower];
+                        realObj.id = "realTimePower";
+                        realObj.unit = 'kW·h';
+                        realObj.color = ['#d3585a'];
+                        realObj.type = ['solid'];
+                        realObj.fontSize = fontsize;
+                        subCharts(realObj);
+                    }else{
+                        var monthPower = {};
+                        monthPower.data = [data.data.dayGeneration,data.data.dayGenerationHours];
+                        monthPower.id = "monthPower";
+                        monthPower.color = ['#0d9e7d','#d3585a'];
+                        monthPower.type = ['solid','solid'];
+                        monthPower.fontSize = fontsize;
+                        monthChart(monthPower);
+                    }
+                }
+            }
+        })
+    }
+    function getchargeInfoData() {
+        var url = '/station/chargeInfo.json';
+        var nv = {};
+        nv.id = 'test';
+        ajax_get_data(url, nv, function (data) {
+            if (data.code == 1) {
+                var powerChart = {};
+                powerChart.data = [data.data.realTimeCharge,data.data.dayCharge];
+                powerChart.id = "powerChart";
+                powerChart.color = ['#0d9e7d','#d3585a'];
+                powerChart.type = ['solid','solid'];
+                powerChart.fontSize = fontsize;
+                powerChartFun(powerChart);
+            }
+        })
+    }
+    function getstorageInfoData() {
+        var url = '/station/storageInfo.json';
+        var nv = {};
+        nv.id = 'test';
+        ajax_get_data(url, nv, function (data) {
+            if (data.code == 1) {
+                for(var key in data.data){
+                    if(key=='dayRealTimePower' ){
+
+                        var powerCurve = {};
+                        powerCurve.data = [data.data.dayRealTimePower];
+                        powerCurve.id = "powerCurve";
+                        powerCurve.unit = 'kW·h';
+                        powerCurve.color = ['#d3585a'];
+                        powerCurve.type = ['solid'];
+                        powerCurve.fontSize = fontsize;
+                        subCharts(powerCurve);
+                    }else if(key=='monthdisCharge' ) {
+                        var dischargeCurve = {};
+                        dischargeCurve.data = [data.data.monthdisCharge];
+                        dischargeCurve.id = "dischargeCurve";
+                        dischargeCurve.color = ['#0d9e7d','#d3585a'];
+                        dischargeCurve.type = ['solid','solid'];
+                        dischargeCurve.fontSize = fontsize;
+                        dischargeCurveFun(dischargeCurve);
+                    }else{
+                        $('#'+key).text(data.data[key]);
+                    }
+                    }
+
+            }
+        })
+    }
+    function getTotalInfoData(){
+        var url = '/station/totalInfo.json';
+        var nv = {};
+        nv.id = 'test';
+        ajax_get_data(url, nv, function (data) {
+            if (data.code == 1) {
+                for(var key in data.data){
+                    if(key!='m_EleSaving'&&key!='m_GreenEnergy'&&key!='m_Generation'&&key!='m_onGrid'&&key!='m_charge'){
+                        $('#'+key).text(data.data[key]);
+                    }
+                }
+                $('#btotalCostSaving').text(data.data.totalCostSaving);
+                $('#tCO2Reduction').text(data.data.CO2Reduction);
+
+                var saveEle = {};
+                saveEle.data = [data.data.m_EleSaving,data.data.m_GreenEnergy];
+                saveEle.id = "saveElectricity";
+                saveEle.color = ['#0d9e7d','#d3585a'];
+                saveEle.type = ['solid','solid'];
+                saveEle.fontSize = fontsize;
+                saveEleFun(saveEle);
+
+                var powerEle = {};
+                powerEle.data = [data.data.m_Generation,data.data.m_onGrid,data.data.m_charge];
+                powerEle.id = "monthlyPowerEle";
+                powerEle.color = ['#0d9e7d','#d3585a','#d9da24'];
+                powerEle.type = ['solid','solid'];
+                powerEle.fontSize = fontsize;
+                monthlyPowerEle(powerEle);
+            }
+        })
+    }
+
+    function getTopologicalInfoData(){
+        var url = '/station/topologicalInfo.json';
+        var nv = {};
+        nv.id = 'test';
+        ajax_get_data(url, nv, function (data) {
+            if (data.code == 1) {
+                for (var key in data.data) {
+                    $('#'+key).text(data.data[key])
+                }
+                $('#t_soc').text(data.data.soc);
+            }
+        })
+    }
 </script>
 </body>
 </html>

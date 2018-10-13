@@ -1,0 +1,16 @@
+{
+  "code":1,
+  "data":{
+    "nPVoutput":125
+   ,"nPilePower":22
+  ,"nTotalStorage":322
+  ,"nPVAbsorb":34
+  ,"nChargeCarNum":0
+  ,"nStorageCharge":2341
+  ,"nTotalStation":1
+  ,"nNormalStation":1
+  ,"nAlarmStation":0
+  ,"nFaultStation":0
+  ,"nStorageDischarge":34
+  }
+}

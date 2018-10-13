@@ -36,7 +36,7 @@
                             <span><i class="lcolor4"></i>出力预测值</span>
                         </div>
                     </div>
-                    <div id="elecSta"  class="elecSta"></div>
+                    <div id="elecSta"  class="elecSta" data="charts1"></div>
                 </li>
                 <li>
                     <div class="titleBox">
@@ -47,7 +47,7 @@
                             <span><i class="lcolor7"></i>放电PCS</span>
                         </div>
                     </div>
-                    <div id="elecSta2" class="elecSta"></div>
+                    <div id="elecSta2" class="elecSta" data="charts2"></div>
                 </li>
                 <li>
                     <div class="titleBox">
@@ -58,7 +58,7 @@
                             <span><i class="lcolor10"></i>负荷kW数</span>
                         </div>
                     </div>
-                    <div id="elecSta3" class="elecSta"></div>
+                    <div id="elecSta3" class="elecSta" data="charts3"></div>
                 </li>
                 <li>
                     <div class="titleBox">
@@ -69,19 +69,19 @@
                             <span><i class="lcolor13"></i>放电平均电价</span>
                         </div>
                     </div>
-                    <div id="elecSta4" class="elecSta"></div>
+                    <div id="elecSta4" class="elecSta" data="charts4"></div>
                 </li>
             </ul>
             </div>
             <div class="leftTab2">
                 <div class="leftTab2Top">
                     <ul>
-                        <li>光伏总出力(MWh):130000</li>
-                        <li>充电桩总充电量(MWh):22325</li>
-                        <li>储能总储电量(MWh):2234523</li>
-                        <li>光伏总本地消纳(MWh):125000</li>
-                        <li>总充电车次:5689</li>
-                        <li>总经济效益(万元):23435</li>
+                        <li>光伏总出力(MWh):<span id="hPVoutput"></span></li>
+                        <li>充电桩总充电量(MWh):<span id="hPileCharge"></span></li>
+                        <li>储能总储电量(MWh):<span id="hTotalStorage"></span></li>
+                        <li>光伏总本地消纳(MWh):<span id="hPVAbsorb"></span></li>
+                        <li>总充电车次:<span id="hChargeCarNum"></span></li>
+                        <li>总经济效益(万元):<span id="economicEffect"></span></li>
                     </ul>
                 </div>
                 <ul class="chartUl tab2Ul">
@@ -134,19 +134,19 @@
     <div class="mainMiddle">
         <div class="maintop">
             <h2 class="text-gradient">杭州光储式公用充电站智能监控系统</h2>
-            <div class="nowTime">2018-07-26 14:25:30</div>
+            <div class="nowTime"></div>
         </div>
         <div class="mainMMain">
             <div id="map" ></div>
             <div class="mainMB">
-                <div>当前光伏总出力(MWh):130</div>
-                <div>当前充电桩总充功率(MW):22</div>
-                <div>当前储能总储电量(MWh):2234</div>
-                <div>当前光伏总本地消纳(MWh):125</div>
-                <div>当前充电车辆数:56</div>
-                <div>当前储能总充电功率(MW):234</div>
-                <div class="l2">当前连接站点总数:20(正常 18;报警 2;故障 0）</div>
-                <div>当前储能总放电功率(MW):34</div>
+                <div>当前光伏总出力(MWh):<span id="nPVoutput"></span></div>
+                <div>当前充电桩总充功率(MW):<span id="nPilePower"></span></div>
+                <div>当前储能总储电量(MWh):<span id="nTotalStorage"></span></div>
+                <div>当前光伏总本地消纳(MWh):<span id="nPVAbsorb"></span></div>
+                <div>当前充电车辆数:<span id="nChargeCarNum"></span></div>
+                <div>当前储能总充电功率(MW):<span id="nStorageCharge"></span></div>
+                <div class="l2">当前连接站点总数:<span id="nTotalStation"></span>(正常 <span id="nNormalStation"></span>;报警 <span id="nAlarmStation"></span>;故障 <span id="nFaultStation"></span>）</div>
+                <div>当前储能总放电功率(MW):<span id="nStorageDischarge"></span></div>
             </div>
         </div>
     </div>
@@ -162,15 +162,24 @@
             <div class="rightTab rightTab1">
                 <div class="rightMainTop">
                     <ul>
-                        <li class="mr">光伏功率<span>23kW</span></li>
-                        <li class="mr">充电功率<span>23kW</span></li>
-                        <li>储能功率<span>23kW</span></li>
+                        <li class="mr">光伏功率<span id="s_pvPower"></span> kW</li>
+                        <li class="mr">充电功率<span id="s_chargePower"></span> kW</li>
+                        <li>储能功率<span id="s_storagePower"></span> kW</li>
                     </ul>
                 </div>
                 <div class="graphBox">
                     <div class="powerGrid"></div>
-                    <div class="pLine">
+
+                    <div class="transformerToPowerGrid">
+                        <div class="jtl"></div>
+                    </div>
+                    <div class="transformer"></div>
+                    <div class="pLine topPline">
+                        <div class="jtx"></div>
+                        <div class="jtl l1"></div>
                         <div class="verticalLine"></div>
+                        <div class="jtl"></div>
+                        <div class="jtl r2"></div>
                     </div>
                     <div class="graph2p">
                         <div class="graph2pLeft">
@@ -178,11 +187,14 @@
                                 <div class="verticalLine"></div>
                                 <div class="ac_dc"></div>
                                 <div class="verticalLine"></div>
+                                <div class="jtl"></div>
+                                <div class="jty"></div>
                             </div>
                             <div class="graph2pLeftMain">
                                 <div class="graph2pLeftMainLeft">
                                     <div class="verticalLine"></div>
                                     <div class="dc_dc"></div>
+                                    <div class="jtx"></div>
                                     <div class="verticalLine height2"></div>
                                     <div class="socNumber">
                                         <p>76.66</p>
@@ -191,6 +203,7 @@
                                     <div class="battery battery3"></div>
                                 </div>
                                 <div class="graph2pLeftMainRight">
+                                    <div class="jtx2"></div>
                                     <div class="cdztop">
                                         <div class="verticalLine"></div>
                                         <div class="dc_dc"></div>
@@ -214,8 +227,10 @@
                         </div>
                         <div class="graph2pRight">
                             <div class="graph2pRightLine">
+                                <div class="jts"></div>
                                 <div class="verticalLine height3"></div>
                                 <div class="dc_dc"></div>
+                                <div class="jts f1"></div>
                                 <div class="verticalLine height2"></div>
                             </div>
                             <div class="graph2pRightMain">
@@ -300,12 +315,12 @@
             <div class="rightTab rightTab3">
                 <div class="leftTab2Top">
                     <ul>
-                        <li>光伏总出力(MWh):130000</li>
-                        <li>充电桩总充电量(MWh):22325</li>
-                        <li>储能总储电量(MWh):2234523</li>
-                        <li>光伏总本地消纳(MWh):125000</li>
-                        <li>总充电车次:5689</li>
-                        <li>总经济效益(万元):23435</li>
+                        <li>光伏总出力(MWh):<span id="s_hPVoutput"></span></li>
+                        <li>充电桩总充电量(MWh):<span id="s_hPileCharge"></span></li>
+                        <li>储能总储电量(MWh):<span id="s_hTotalStorage"></span></li>
+                        <li>光伏总本地消纳(MWh):<span id="s_hPVAbsorb"></span></li>
+                        <li>总充电车次:<span id="s_hChargeCarNum"></span></li>
+                        <li>总经济效益(万元):<span id="s_economicEffect"></span></li>
                     </ul>
                 </div>
                 <ul class="chartUl tab2Ul">
@@ -359,36 +374,26 @@
 
 <div id="popWin" class="popWin">
     <div class="winTop">
-        <span id="room_name">文二路光储充站</span></span>
+        <span id="room_name">10号楼实验系统</span></span>
     </div>
     <div class="winMain">
         <ul>
-            <li>当前光伏出力：<span id="gfcl">130</span>kW</li>
-            <li>当前光伏吸纳：<span id="inner_temp">130</span>kW</li>
-            <li>当前充电总功率：<span id="current_status">122</span>kW</li>
-            <li>当前充电车辆数：<span id="current">56</span>辆</li>
-            <li>储能PCS功率：<span id="room_temp">32</span>kW</li>
-            <li>SOC：<span id="voltage">80%</span></li>
-            <li>电网输入功率：<span id="outlet_temp">234</span>kW</li>
+            <li>当前光伏出力：<span id="s_nPVoutput"></span>kW</li>
+            <li>当前光伏吸纳：<span id="s_nPVAbsorb"></span>kW</li>
+            <li>当前充电总功率：<span id="s_nChargePower"></span>kW</li>
+            <li>当前充电车辆数：<span id="s_nChargeCarNum"></span>辆</li>
+            <li>储能PCS功率：<span id="s_storagePCS"></span>kW</li>
+            <li>SOC：<span id="s_soc"></span>%</li>
+            <li>电网输入功率：<span id="s_inPower"></span>kW</li>
         </ul>
     </div>
 </div>
+
+<div class="mask"></div>
 <script>
-
+    var fontsize = $('html').css('fontSize').split('px')[0];
+    var chartsData={};
     $(function(){
-        var url = '/index?id=12345'
-        var nv = {}
-        ajax_post_get_data(url,nv,function(data){
-            if(data.ret==1){
-                console.log(data.data.stationList)
-                map(data.data.stationList);
-            }
-        })
-
-
-
-
-
         get3Date()
         $('.leftMenu .menus').click(function(){
             $(this).parent('.leftMenu').toggleClass('tab2');
@@ -400,6 +405,17 @@
                 $('.leftTab2').hide();
             }
         })
+        // $('.elecSta').click(function(){
+        //     var type = $(this).attr('data');
+        //     $('body').append('<div class="popCharts" id="popCharts"></div>')
+        //     $('.popCharts,.mask').show();
+        //
+        //     eval(type)(chartsData,'popCharts');
+        // })
+        // $('.mask').click(function(){
+        //     $('.mask').hide();
+        //     $('#popCharts').remove();
+        // })
         $('.rightMenu .menus').click(function(){
             var c = $(this).attr('class');
             $(this).parent('.rightMenu').removeClass().addClass('rightMenu '+c);
@@ -410,117 +426,245 @@
         $('.rightClickButtom').click(function(){
             window.location.href = 'substation.html?sta=sssssss'
         })
+         fontsize = $('html').css('fontSize').split('px')[0];
 
-        var fontsize = $('html').css('fontSize').split('px')[0];
         $('.elecSta').width($('.elecSta').parent('li').width());
         $('#map').width($('#map').parent('.mainMMain').width());
+
+        getRealTimeData();
+        getHistoryData();
+        getSystemSurvey();
+
+        getStationInfo();
+
+        getStationRealTimeData();
+        getStationhistoryData();
+
+
+        map(stationList);
+        showNowTime();
+
+    })
+
+    function getRealTimeData(){
+        var url = '/index/real_time_data.json';
+        ajax_get_data(url,{},function(data){
+            if(data.code==1){
+                leftCharts(data.data);
+            }
+        })
+    }
+    function getHistoryData(){
+        var url = '/index/history_data.json';
+        ajax_get_data(url,{},function(data){
+            if(data.code==1){
+                leftHistoryCharts(data.data);
+                $('#hPVoutput').text(data.data.hPVoutput);
+                $('#hPileCharge').text(data.data.hPileCharge);
+                $('#hTotalStorage').text(data.data.hTotalStorage);
+                $('#hPVAbsorb').text(data.data.hPVAbsorb);
+                $('#hChargeCarNum').text(data.data.hChargeCarNum);
+                $('#economicEffect').text(data.data.economicEffect);
+            }
+        })
+    }
+    function getSystemSurvey(){
+        var url = '/index/systemSurvey.json';
+        ajax_get_data(url,{},function(data){
+            if(data.code==1){
+                for(var key in data.data){
+                    $('#'+key).text(data.data[key]);
+                }
+            }
+        })
+    }
+
+    function getStationInfo(){
+        var url = '/index/stationInfo.json';
+        var nv = {};
+        nv.id = 'test'
+        ajax_get_data(url,nv,function(data){
+            if(data.code==1){
+                for(var key in data.data){
+                    $('#'+key).text(data.data[key]);
+                }
+            }
+        })
+    }
+
+    function getStationRealTimeData(){
+        var url = '/index/real_station_time_data.json';
+        var nv = {};
+        nv.id='test';
+        ajax_get_data(url,nv,function(data){
+            if(data.code==1){
+                rightCharts(data.data);
+            }
+        })
+    }
+    function getStationhistoryData(){
+        var url = '/index/station_history_data.json';
+        var nv = {};
+        nv.id='test';
+        ajax_get_data(url,nv,function(data){
+            if(data.code==1){
+                rightHistoryCharts(data.data);
+                $('#s_hPVoutput').text(data.data.hPVoutput);
+                $('#s_hPileCharge').text(data.data.hPileCharge);
+                $('#s_hTotalStorage').text(data.data.hTotalStorage);
+                $('#s_hPVAbsorb').text(data.data.hPVAbsorb);
+                $('#s_hChargeCarNum').text(data.data.hChargeCarNum);
+                $('#s_economicEffect').text(data.data.economicEffect);
+            }
+        })
+    }
+
+    function rightCharts(data){
+        charts5(data,'rchart1');
+        charts6(data,'rchart2');
+        charts7(data,'rchart3');
+        charts8(data,'rchart4');
+    }
+    function leftCharts(data){
+        chartsData.PVoutput = data.PVoutput;
+        chartsData.PVabsorb = data.PVabsorb;
+        chartsData.totalContent = data.totalContent;
+        chartsData.predictedValue = data.predictedValue;
+        chartsData.chargePCS = data.chargePCS;
+        chartsData.totalStorage = data.totalStorage;
+        chartsData.dischargePCS = data.dischargePCS;
+        chartsData.pilekW = data.pilekW;
+        chartsData.chargeCarNum = data.chargeCarNum;
+        chartsData.otherLoadkW = data.otherLoadkW;
+        chartsData.stateGridPrice = data.stateGridPrice;
+        chartsData.chargingPrice = data.chargingPrice;
+        chartsData.dischargePrice = data.dischargePrice;
+
+        charts1(data,'elecSta');
+        charts2(data,'elecSta2');
+        charts3(data,'elecSta3');
+        charts4(data,'elecSta4');
+
+
+    }
+
+    function charts1(data,id){
         var eleStaObj = {};
-        eleStaObj.data = [eleSta,eleSta2,eleSta3,eleSta4];
-        eleStaObj.id = "elecSta";
-        eleStaObj.unit = 'kW·h';
+        eleStaObj.data = [data.PVoutput,data.PVabsorb,data.totalContent,data.predictedValue];
+        eleStaObj.id = id;
+        eleStaObj.unit = 'kW';
         eleStaObj.color = ['#d3585a','#0c96ee','#0b9e84','#d9da24'];
         eleStaObj.type = ['solid','solid','solid','dashed'];
         eleStaObj.fontSize = fontsize;
         myCharts(eleStaObj);
+    }
 
+    function charts2(data,id){
         var eleStaObj2 = {};
-        eleStaObj2.data = [eleSta,eleSta2,eleSta3];
-        eleStaObj2.id = "elecSta2";
+        eleStaObj2.data = [data.chargePCS,data.totalStorage,data.dischargePCS];
+        eleStaObj2.id = id;
         eleStaObj2.color = ['#d3585a','#0c96ee','#0b9e84'];
         eleStaObj2.type = ['solid','solid','solid'];
         eleStaObj2.fontSize = fontsize;
         myCharts2(eleStaObj2);
+    }
+    function charts3(data,id){
         var eleStaObj3 = {};
-        eleStaObj3.data = [eleSta,eleSta2,eleSta3];
-        eleStaObj3.id = "elecSta3";
+        eleStaObj3.data = [data.pilekW,data.chargeCarNum,data.otherLoadkW];
+        eleStaObj3.id = id;
         eleStaObj3.color = ['#0d9e7d','rgba(8,91,185,0.7)','#a0cd58'];
         eleStaObj3.type = ['solid','solid','solid'];
         eleStaObj3.fontSize = fontsize;
         myCharts3(eleStaObj3);
-
+    }
+    function charts4(data,id){
         var eleStaObj4 = {};
-        eleStaObj4.data = [eleSta,eleSta2,eleSta3];
-        eleStaObj4.id = "elecSta4";
+        eleStaObj4.data = [data.stateGridPrice,data.chargingPrice ,data.dischargePrice];
+        eleStaObj4.id = id;
         eleStaObj4.color = ['#9ecd59','#075bd5','#601d86'];
         eleStaObj4.type = ['solid','solid','solid'];
         eleStaObj4.fontSize = fontsize;
         myCharts4(eleStaObj4);
+    }
+    function charts5(data,id){
+        var rchartObj = {};
+        rchartObj.data = [data.PVoutput,data.PVabsorb,data.totalContent,data.predictedValue];
+        rchartObj.id = id;
+        rchartObj.unit = 'kW·h';
+        rchartObj.color = ['#d3585a','#0c96ee','#0b9e84','#d9da24'];
+        rchartObj.type = ['solid','solid','solid','dashed'];
+        rchartObj.fontSize = fontsize;
+        myCharts(rchartObj);
+    }
+    function charts6(data,id){
 
+        var rchartObj2 = {};
+        rchartObj2.data = [data.chargePCS,data.totalStorage,data.dischargePCS];
+        rchartObj2.id = id;
+        rchartObj2.unit = 'kW·h';
+        rchartObj2.color = ['#d3585a','#0c96ee','#0b9e84','#d9da24'];
+        rchartObj2.type = ['solid','solid','solid','solid'];
+        rchartObj2.fontSize = fontsize;
+        myCharts2(rchartObj2);
+    }
+    function charts7(data,id){
+        var rchartObj3 = {};
+        rchartObj3.data = [data.pilekW,data.chargeCarNum,data.otherLoadkW];
+        rchartObj3.id = id;
+        rchartObj3.color = ['#0d9e7d','rgba(8,91,185,0.7)','#a0cd58'];
+        rchartObj3.type = ['solid','solid','solid'];
+        rchartObj3.fontSize = fontsize;
+        myCharts3(rchartObj3);
+    }
+    function charts8(data,id){
 
+        var rchartObj4 = {};
+        rchartObj4.data = [data.stateGridPrice,data.chargingPrice ,data.dischargePrice];
+        rchartObj4.id = id;
+        rchartObj4.color = ['#9ecd59','#075bd5','#601d86'];
+        rchartObj4.type = ['solid','solid','solid'];
+        rchartObj4.fontSize = fontsize;
+        myCharts4(rchartObj4);
+    }
 
-
-
+        function leftHistoryCharts(data){
 
         var eleStaObj5 = {};
-        eleStaObj5.data = [get3MVal(),get3MVal(),get3MVal()];
+        eleStaObj5.data = [data.PVdayOutput,data.PVdayAbsorb,data.PVdayPreOutput];
+        // eleStaObj5.data = [get3MVal(),get3MVal(),get3MVal()];
         eleStaObj5.id = "elecSta5";
         eleStaObj5.color = ['#0b9e84','#0c96ee','#d3585a'];
         eleStaObj5.type = ['solid','solid','solid'];
         eleStaObj5.fontSize = fontsize;
         myCharts5(eleStaObj5);
-
+        //
         var eleStaObj6 = {};
-        eleStaObj6.data = [get3MVal(),get3MVal()];
+        eleStaObj6.data = [data.storageDayDischarge,data.PVdayCharge];
         eleStaObj6.id = "elecSta6";
         eleStaObj6.color = ['#0b9e84','#0c96ee'];
         eleStaObj6.type = ['solid','solid','solid'];
         eleStaObj6.fontSize = fontsize;
         myCharts6(eleStaObj6);
-
+        //
         var eleStaObj7 = {};
-        eleStaObj7.data = [get3MVal(),get3MVal()];
+        eleStaObj7.data = [data.pileDayCharge,data.pileDayCarNum];
         eleStaObj7.id = "elecSta7";
         eleStaObj7.color = ['#0b9e84','#d3585a'];
         eleStaObj7.type = ['solid','solid','solid'];
         eleStaObj7.fontSize = fontsize;
         myCharts7(eleStaObj7);
         var eleStaObj8 = {};
-        eleStaObj8.data = [get3MVal(),get3MVal(),get3MVal()];
+        eleStaObj8.data = [data.dayAvgElePrice,data.gridDayAvgElePrice,data.daySaveElePrice];
         eleStaObj8.id = "elecSta8";
         eleStaObj8.color = ['#d3585a','#0c96ee','#0b9e84'];
         eleStaObj8.type = ['solid','solid','solid'];
         eleStaObj8.fontSize = fontsize;
         myCharts8(eleStaObj8);
 
-
-
-        // 右侧
-        var rchartObj = {};
-        rchartObj.data = [eleSta,eleSta2,eleSta3,eleSta4];
-        rchartObj.id = "rchart1";
-        rchartObj.unit = 'kW·h';
-        rchartObj.color = ['#d3585a','#0c96ee','#0b9e84','#d9da24'];
-        rchartObj.type = ['solid','solid','solid','dashed'];
-        rchartObj.fontSize = fontsize;
-        myCharts(rchartObj);
-        var rchartObj2 = {};
-        rchartObj2.data = [eleSta,eleSta2,eleSta3,eleSta4];
-        rchartObj2.id = "rchart2";
-        rchartObj2.unit = 'kW·h';
-        rchartObj2.color = ['#d3585a','#0c96ee','#0b9e84','#d9da24'];
-        rchartObj2.type = ['solid','solid','solid','solid'];
-        rchartObj2.fontSize = fontsize;
-        myCharts(rchartObj2);
-        var rchartObj3 = {};
-        rchartObj3.data = [eleSta,eleSta2,eleSta3];
-        rchartObj3.id = "rchart3";
-        rchartObj3.color = ['#0d9e7d','rgba(8,91,185,0.7)','#a0cd58'];
-        rchartObj3.type = ['solid','solid','solid'];
-        rchartObj3.fontSize = fontsize;
-        myCharts3(rchartObj3);
-
-        var rchartObj4 = {};
-        rchartObj4.data = [eleSta,eleSta2,eleSta3];
-        rchartObj4.id = "rchart4";
-        rchartObj4.color = ['#9ecd59','#075bd5','#601d86'];
-        rchartObj4.type = ['solid','solid','solid'];
-        rchartObj4.fontSize = fontsize;
-        myCharts4(rchartObj4);
-
-
-
+    }
+    function rightHistoryCharts(data){
         var rchartObj5 = {};
-        rchartObj5.data = [get3MVal(),get3MVal(),get3MVal()];
+        rchartObj5.data = [data.PVdayOutput,data.PVdayAbsorb,data.PVdayPreOutput];
         rchartObj5.id = "rchart5";
         rchartObj5.color = ['#0b9e84','#0c96ee','#d3585a'];
         rchartObj5.type = ['solid','solid','solid'];
@@ -528,7 +672,7 @@
         myCharts5(rchartObj5);
 
         var rchartObj6 = {};
-        rchartObj6.data = [get3MVal(),get3MVal()];
+        rchartObj6.data = [data.storageDayDischarge,data.PVdayCharge];
         rchartObj6.id = "rchart6";
         rchartObj6.color = ['#0b9e84','#0c96ee'];
         rchartObj6.type = ['solid','solid','solid'];
@@ -536,25 +680,21 @@
         myCharts6(rchartObj6);
 
         var rchartObj7 = {};
-        rchartObj7.data = [get3MVal(),get3MVal()];
+        rchartObj7.data = [data.pileDayCharge,data.pileDayCarNum];
         rchartObj7.id = "rchart7";
         rchartObj7.color = ['#0b9e84','#d3585a'];
         rchartObj7.type = ['solid','solid','solid'];
         rchartObj7.fontSize = fontsize;
         myCharts7(rchartObj7);
         var rchartObj8 = {};
-        rchartObj8.data = [get3MVal(),get3MVal(),get3MVal()];
+        rchartObj8.data = [data.dayAvgElePrice,data.gridDayAvgElePrice,data.daySaveElePrice];
         rchartObj8.id = "rchart8";
         rchartObj8.color = ['#d3585a','#0c96ee','#0b9e84'];
         rchartObj8.type = ['solid','solid','solid'];
         rchartObj8.fontSize = fontsize;
         myCharts8(rchartObj8);
+    }
 
-
-
-
-
-    })
 </script>
 </body>
 </html>

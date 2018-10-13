@@ -476,11 +476,28 @@
 .powerGrid{
     position: absolute;
     top:0;
-    left:11rem;
+    left:16rem;
     width: 3.75rem;
     height: 4.09rem;
     background: url("../img/tower.png") no-repeat;
     background-size: contain;
+}
+.transformer{
+    position: absolute;
+    top:1.7rem;
+    left:11.5rem;
+    width: 2rem;
+    height: 2rem;
+    background: url("../img/transformer.png") no-repeat;
+    background-size: contain;
+}
+.transformerToPowerGrid{
+    position: absolute;
+    top:1rem;
+    left:13.5rem;
+    width: 3rem;
+    height: 2rem;
+    border-bottom: 0.04rem solid #0094da;;
 }
 .pLine{
     height: 1rem;
@@ -559,6 +576,26 @@
     top: 0;
     left: 4.27rem;
 }
+.graph2pLeftMainLeft .jtx{
+    width: 0.5rem;
+    height:2rem;
+    background: url("../img/xjt.gif") no-repeat;
+    position: absolute;
+    top:2.4rem;
+    left: 4rem;
+    z-index: 100;
+    background-size: contain;
+}
+.graph2pLeftMainRight .jtx2{
+    width: 0.5rem;
+    height:1.5rem;
+    background: url("../img/xjt2.gif") no-repeat;
+    position: absolute;
+    top:1.8rem;
+    left: 3.2rem;
+    z-index: 100;
+    background-size: contain;
+}
 .graph2pLeftMainLeft .dc_dc{
     background: url("../img/dc_dc.png") no-repeat;
     width: 2rem;
@@ -631,7 +668,6 @@
     height: 0.9rem;
     background-size: contain;
     margin: 0 auto;
-
 }
 .pileBox{
     position: absolute;
@@ -669,6 +705,77 @@
     top:0;
     left:1rem;
     border-bottom: 0.04rem solid #0094da;
+}
+.graph2pRightLine .jts{
+    width: 0.5rem;
+    height:2rem;
+    background: url("../img/sjt.gif") no-repeat;
+    position: absolute;
+    top:1.4rem;
+    left: 2.7rem;
+    z-index: 100;
+    background-size: contain;
+}
+.graph2pRightLine .jts.f1{
+    top:5rem;
+}
+.topPline .jtl{
+    width: 2rem;
+    height:0.5rem;
+    background: url("../img/ljt.gif") no-repeat;
+    position: absolute;
+    top:0.8rem;
+    left: 5.7rem;
+    z-index: 100;
+    background-size: contain;
+}
+.topPline .jtx{
+    width: 0.5rem;
+    height:2rem;
+    background: url("../img/xjt.gif") no-repeat;
+    position: absolute;
+    top:-0.5rem;
+    left: 3.8rem;
+    z-index: 100;
+    background-size: contain;
+}
+
+.topPline .jtl.r2{
+    left: 10rem;
+}
+
+.topPline .jtl.l1{
+    left: 1.3rem;
+}
+.transformerToPowerGrid .jtl{
+    width: 2rem;
+    height:0.5rem;
+    background: url("../img/ljt.gif") no-repeat;
+    position: absolute;
+    top:1.8rem;
+    left: 1.3rem;
+    z-index: 100;
+    background-size: contain;
+}
+.graph2pLeftLine .jtl{
+    width: 2rem;
+    height:0.5rem;
+    background: url("../img/ljt.gif") no-repeat;
+    position: absolute;
+    top:2.7rem;
+    left: 1.3rem;
+    z-index: 100;
+    background-size: contain;
+}
+.graph2pLeftLine .jty{
+    width: 2rem;
+    height:0.5rem;
+    background: url("../img/yjt.gif") no-repeat;
+    position: absolute;
+    top:2.7rem;
+    left: 6.3rem;
+    z-index: 100;
+    background-size: contain;
 }
 .verticalLine.height3{
     height: 3.9rem;
@@ -710,6 +817,31 @@
     margin-top: 2rem;
 }
 
+.popCharts{
+    display: none;
+    position: absolute;
+    width: 60%;
+    height: 70%;
+    background: #011825;
+    padding: 5%;
+    top: 5%;
+    left: 15%;
+    border: 1px solid #0094da;
+    border-radius: 10px;
+    font-size: 0.6rem;
+    z-index: 100000;
+}
+.mask{
+    display: none;
+    background: rgba(2,29,44,0.8);
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+
+    z-index: 99999;
+}
 .popWin{
     display: none;
     position: absolute;
@@ -834,6 +966,17 @@
     padding: 0.2rem 0.7rem;
     box-sizing: border-box;
 }
+.leftTopMain li div.total{
+    border-bottom:none;
+    height: 4rem;
+}
+.leftTopMain li div.total p{
+    height: 2rem;
+}
+.leftTopMain li div.total p span{
+    font-size: 1.5rem;
+    margin-right: 0.2rem;
+}
 .leftTopMain li div.nobb{
     border-bottom: none;
 }
@@ -841,7 +984,7 @@
     font-size: 0.8rem;
     color:#eec007 ;
     font-weight: bold;
-    margin-right: 1rem;
+    margin-right: 0.5rem;
 }
 .leftMMain{
     position: absolute;

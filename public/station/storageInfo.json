@@ -1,0 +1,14 @@
+{
+  "code":1,
+  "data":{
+    "s_realTimePower":1300
+  ,"s_chargePower":124
+  ,"s_dischargePower":523
+  ,"s_soc":34
+  ,"s_soh":23
+  ,"dayTotalcharge":100
+    ,"totalCostSaving":0
+  ,"dayRealTimePower":[133,122,133,111,133,111,145,164,112,143,133,122,133,111,133,111,145,164]
+  ,"monthdisCharge":[133,122,133,111,133,111,145,164,112,143,133,122,133,111,133,111,145,164]
+  }
+}
