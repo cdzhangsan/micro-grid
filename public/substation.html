@@ -533,7 +533,7 @@
         ajax_get_data(url, nv, function (data) {
             if (data.code == 1) {
                 for(var key in data.data){
-                    if(key!='m_EleSaving'&&key!='m_GreenEnergy'&&key!='m_Generation'&&key!='m_onGrid'&&key!='m_charge'&&key!='CO2Reduction'){
+                    if(key!='m_EleSaving'&&key!='m_GreenEnergy'&&key!='m_Generation'&&key!='m_onGrid'&&key!='m_charge'&&key!='CO2Reduction'&&key!='totalCostSaving'){
                         $('#'+key).text(data.data[key]);
                     }
                 }
