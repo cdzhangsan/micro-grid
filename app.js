@@ -11,7 +11,7 @@ app.engine('html', ejs.renderFile);
 routers.router(app);
 
 
-app.use(express.static(path.join(__dirname,'public')))
+app.use(express.static(path.join(__dirname,'public')));
 // app.use(express.static('./public'));
 
 var server = app.listen(80, function () {
@@ -20,3 +20,4 @@ var server = app.listen(80, function () {
 
     console.log('Example app listening at http://%s:%s', host, port);
 });
+

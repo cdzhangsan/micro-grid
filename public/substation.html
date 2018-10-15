@@ -156,7 +156,7 @@
         </div>
         <div class="mainMMain">
             <div class="subMainbg">
-                <div class="runType">实时运行方式：<span id="runType">并网/孤网</span></div>
+                <div class="runType">实时运行方式：<span id="runType"></span></div>
                 <div class="graphBox">
                     <div class="powerGrid"></div>
                     <div class="transformerToPowerGrid">
@@ -265,20 +265,20 @@
             <div class="rightTab rightTab1">
                 <div class="rightTabLeft">
                     <ul class="textList">
-                        <li class="mr">实时功率<span ><em id="s_realTimePower">23</em>kW</span></li>
-                        <li class="mr">可充电容量<span><em  id="s_chargePower">23</em>kWh</span></li>
-                        <li>可放电容量<span><em id="s_dischargePower">23</em>kWh</span></li>
+                        <li class="mr">实时功率<span ><em id="s_realTimePower"></em>kW</span></li>
+                        <li class="mr">可充电容量<span><em  id="s_chargePower"></em>kWh</span></li>
+                        <li>可放电容量<span><em id="s_dischargePower"></em>kWh</span></li>
                     </ul>
                     <ul class="socsoh">
                         <li class="soc">
                             <div>
-                                <span><em id="s_soc">25</em>%</span>
+                                <span><em id="s_soc"></em>%</span>
                             </div>
                             <p>SOC</p>
                         </li>
                         <li class="soh">
                             <div>
-                                <span><em id="s_soh">25</em>%</span>
+                                <span><em id="s_soh"></em>%</span>
                             </div>
                             <p>SOH</p>
                         </li>
@@ -299,20 +299,20 @@
             <div class="rightTab rightTab2">
                 <div class="rightTab2Left">
                     <ul>
-                        <li>光伏装机容量：<span id="PVtotalContentPower">300</span> kWh</li>
-                        <li>储能容量：<span id="storageTotalPower">300</span> kWh</li>
-                        <li>充电装机功率：<span id="chargeTotalPower">300</span> kWh</li>
-                        <li>日发电量：<span id="dayGeneration">300</span> kWh</li>
-                        <li>月发电量：<span id="monthGeneration">300</span> kWh</li>
-                        <li>年发电量：<span id="yearGeneration">300</span> kWh</li>
-                        <li>累计发电量：<span id="totalGeneration">1234</span> MWh</li>
-                        <li>累计上网电量：<span id="totalOnGrid">1234</span> kWh</li>
-                        <li>累计充电量：<span id="totalCharge">1234</span> MWh</li>
-                        <li>电网侧累计电量：<span id="gridTotal">1234</span> MWh</li>
-                        <li>微网系统频率：<span id="micGridRate">50</span> Hz</li>
+                        <li>光伏装机容量：<span id="PVtotalContentPower"></span> kWh</li>
+                        <li>储能容量：<span id="storageTotalPower"></span> kWh</li>
+                        <li>充电装机功率：<span id="chargeTotalPower"></span> kWh</li>
+                        <li>日发电量：<span id="dayGeneration"></span> kWh</li>
+                        <li>月发电量：<span id="monthGeneration"></span> kWh</li>
+                        <li>年发电量：<span id="yearGeneration"></span> kWh</li>
+                        <li>累计发电量：<span id="totalGeneration"></span> MWh</li>
+                        <li>累计上网电量：<span id="totalOnGrid"></span> kWh</li>
+                        <li>累计充电量：<span id="totalCharge"></span> MWh</li>
+                        <li>电网侧累计电量：<span id="gridTotal"></span> MWh</li>
+                        <li>微网系统频率：<span id="micGridRate"></span> Hz</li>
                         <li>CO2减排量：<span id="tCO2Reduction"></span> kg</li>
                         <li>温度/辐射度：<span><em id="temperature"></em>℃/<em id="radiance"></em></span></li>
-                        <li>投运时间：<span id="runTime">2018-06-30</span></li>
+                        <li>投运时间：<span id="runTime"></span></li>
                     </ul>
                 </div>
                 <div class="rightTab2Right">
@@ -413,6 +413,7 @@
         $('#powerChart').width($('.powerChart').width());
         $('#powerCurve').width($('.rightTabRightChart').width());
         $('#saveElectricity,#monthlyPowerEle').width($('.rightTab2Right').width());
+
         getdPVinfoData();
         getchargeInfoData();
         getstorageInfoData();
@@ -532,7 +533,7 @@
         ajax_get_data(url, nv, function (data) {
             if (data.code == 1) {
                 for(var key in data.data){
-                    if(key!='m_EleSaving'&&key!='m_GreenEnergy'&&key!='m_Generation'&&key!='m_onGrid'&&key!='m_charge'){
+                    if(key!='m_EleSaving'&&key!='m_GreenEnergy'&&key!='m_Generation'&&key!='m_onGrid'&&key!='m_charge'&&key!='CO2Reduction'){
                         $('#'+key).text(data.data[key]);
                     }
                 }
@@ -565,9 +566,16 @@
         ajax_get_data(url, nv, function (data) {
             if (data.code == 1) {
                 for (var key in data.data) {
+                    if(key!=='runType'&& key!='soc')
                     $('#'+key).text(data.data[key])
                 }
                 $('#t_soc').text(data.data.soc);
+                if(data.data.runType==1){
+                    $('#runType').text('并网');
+                }
+                else{
+                    $('#runType').text('孤网')
+                }
             }
         })
     }
